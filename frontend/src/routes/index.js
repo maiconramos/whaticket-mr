@@ -15,6 +15,7 @@ import QuickAnswers from "../pages/QuickAnswers/";
 import Queues from "../pages/Queues/";
 import { AuthProvider } from "../context/Auth/AuthContext";
 import { WhatsAppsProvider } from "../context/WhatsApp/WhatsAppsContext";
+import Disparador from "../pages/Disparador/";
 import Route from "./Route";
 
 const Routes = () => {
@@ -49,6 +50,7 @@ const Routes = () => {
               />
               <Route exact path="/Settings" component={Settings} isPrivate />
               <Route exact path="/Queues" component={Queues} isPrivate />
+              <Route exact path="/Disparador" component={Disparador} isPrivate />
             </LoggedInLayout>
           </WhatsAppsProvider>
         </Switch>

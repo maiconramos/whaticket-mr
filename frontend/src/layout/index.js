@@ -24,6 +24,7 @@ import UserModal from "../components/UserModal";
 import { AuthContext } from "../context/Auth/AuthContext";
 import BackdropLoading from "../components/BackdropLoading";
 import { i18n } from "../translate/i18n";
+import logodash from "../assets/logo-dash.svg";
 
 const drawerWidth = 240;
 
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
 
   toolbar: {
     paddingRight: 24, // keep right padding when drawer closed
+    color: process.env.REACT_APP_COLOR_TEXT_TOOLBAR || "#ffffff",
+    backgroundColor: process.env.REACT_APP_COLOR_TOOLBAR || "#0bb5e3" 
   },
   toolbarIcon: {
     display: "flex",
@@ -177,6 +180,7 @@ const LoggedInLayout = ({ children }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
+         <img src={logodash} alt="logo" style={{maxHeight: "40px"}} />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)}>
             <ChevronLeftIcon />
           </IconButton>
@@ -217,7 +221,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            WhaTicket
+            Multiatendimento
           </Typography>
           {user.id && <NotificationsPopOver />}
 
