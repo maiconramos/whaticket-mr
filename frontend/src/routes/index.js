@@ -48,9 +48,10 @@ const Routes = () => {
                 component={QuickAnswers}
                 isPrivate
               />
+              <Route exact path="/Disparador" component={Disparador} isPrivate />
               <Route exact path="/Settings" component={Settings} isPrivate />
               <Route exact path="/Queues" component={Queues} isPrivate />
-              <Route exact path="/Disparador" component={Disparador} isPrivate />
+             
             </LoggedInLayout>
           </WhatsAppsProvider>
         </Switch>

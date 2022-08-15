@@ -5,29 +5,29 @@ import { Picker } from "emoji-mart";
 import MicRecorder from "mic-recorder-to-mp3";
 import clsx from "clsx";
 
-import { makeStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
-import InputBase from "@material-ui/core/InputBase";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { green } from "@material-ui/core/colors";
-import AttachFileIcon from "@material-ui/icons/AttachFile";
-import IconButton from "@material-ui/core/IconButton";
-import MoreVert from "@material-ui/icons/MoreVert";
-import MoodIcon from "@material-ui/icons/Mood";
-import SendIcon from "@material-ui/icons/Send";
-import CancelIcon from "@material-ui/icons/Cancel";
-import ClearIcon from "@material-ui/icons/Clear";
-import MicIcon from "@material-ui/icons/Mic";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import makeStyles from '@mui/styles/makeStyles';
+import Paper from "@mui/material/Paper";
+import InputBase from "@mui/material/InputBase";
+import CircularProgress from "@mui/material/CircularProgress";
+import { green } from "@mui/material/colors";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import IconButton from "@mui/material/IconButton";
+import MoreVert from "@mui/icons-material/MoreVert";
+import MoodIcon from "@mui/icons-material/Mood";
+import SendIcon from "@mui/icons-material/Send";
+import CancelIcon from "@mui/icons-material/Cancel";
+import ClearIcon from "@mui/icons-material/Clear";
+import MicIcon from "@mui/icons-material/Mic";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import {
   FormControlLabel,
   Hidden,
   Menu,
   MenuItem,
   Switch,
-} from "@material-ui/core";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+} from "@mui/material";
+import ClickAwayListener from "@mui/material/ClickAwayListener";
 
 import { i18n } from "../../translate/i18n";
 import api from "../../services/api";
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     borderTop: "1px solid rgba(0, 0, 0, 0.12)",
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoints.down('lg')]: {
       position: "fixed",
       bottom: 0,
       width: "100%",
@@ -408,7 +408,7 @@ const MessageInput = ({ ticketStatus }) => {
           component="span"
           disabled={loading || ticketStatus !== "open"}
           onClick={() => setReplyingMessage(null)}
-        >
+          size="large">
           <ClearIcon className={classes.sendMessageIcons} />
         </IconButton>
       </div>
@@ -422,7 +422,7 @@ const MessageInput = ({ ticketStatus }) => {
           aria-label="cancel-upload"
           component="span"
           onClick={(e) => setMedias([])}
-        >
+          size="large">
           <CancelIcon className={classes.sendMessageIcons} />
         </IconButton>
 
@@ -441,7 +441,7 @@ const MessageInput = ({ ticketStatus }) => {
           component="span"
           onClick={handleUploadMedia}
           disabled={loading}
-        >
+          size="large">
           <SendIcon className={classes.sendMessageIcons} />
         </IconButton>
       </Paper>
@@ -457,7 +457,7 @@ const MessageInput = ({ ticketStatus }) => {
               component="span"
               disabled={loading || recording || ticketStatus !== "open"}
               onClick={(e) => setShowEmoji((prevState) => !prevState)}
-            >
+              size="large">
               <MoodIcon className={classes.sendMessageIcons} />
             </IconButton>
             {showEmoji ? (
@@ -486,7 +486,7 @@ const MessageInput = ({ ticketStatus }) => {
                 aria-label="upload"
                 component="span"
                 disabled={loading || recording || ticketStatus !== "open"}
-              >
+                size="large">
                 <AttachFileIcon className={classes.sendMessageIcons} />
               </IconButton>
             </label>
@@ -512,7 +512,7 @@ const MessageInput = ({ ticketStatus }) => {
               aria-controls="simple-menu"
               aria-haspopup="true"
               onClick={handleOpenMenuClick}
-            >
+              size="large">
               <MoreVert></MoreVert>
             </IconButton>
             <Menu
@@ -528,7 +528,7 @@ const MessageInput = ({ ticketStatus }) => {
                   component="span"
                   disabled={loading || recording || ticketStatus !== "open"}
                   onClick={(e) => setShowEmoji((prevState) => !prevState)}
-                >
+                  size="large">
                   <MoodIcon className={classes.sendMessageIcons} />
                 </IconButton>
               </MenuItem>
@@ -546,7 +546,7 @@ const MessageInput = ({ ticketStatus }) => {
                     aria-label="upload"
                     component="span"
                     disabled={loading || recording || ticketStatus !== "open"}
-                  >
+                    size="large">
                     <AttachFileIcon className={classes.sendMessageIcons} />
                   </IconButton>
                 </label>
@@ -624,7 +624,7 @@ const MessageInput = ({ ticketStatus }) => {
               component="span"
               onClick={handleSendMessage}
               disabled={loading}
-            >
+              size="large">
               <SendIcon className={classes.sendMessageIcons} />
             </IconButton>
           ) : recording ? (
@@ -635,7 +635,7 @@ const MessageInput = ({ ticketStatus }) => {
                 fontSize="large"
                 disabled={loading}
                 onClick={handleCancelAudio}
-              >
+                size="large">
                 <HighlightOffIcon className={classes.cancelAudioIcon} />
               </IconButton>
               {loading ? (
@@ -651,7 +651,7 @@ const MessageInput = ({ ticketStatus }) => {
                 component="span"
                 onClick={handleUploadAudio}
                 disabled={loading}
-              >
+                size="large">
                 <CheckCircleOutlineIcon className={classes.sendAudioIcon} />
               </IconButton>
             </div>
@@ -661,7 +661,7 @@ const MessageInput = ({ ticketStatus }) => {
               component="span"
               disabled={loading || ticketStatus !== "open"}
               onClick={handleStartRecording}
-            >
+              size="large">
               <MicIcon className={classes.sendMessageIcons} />
             </IconButton>
           )}

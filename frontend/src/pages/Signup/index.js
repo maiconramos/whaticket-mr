@@ -18,11 +18,11 @@ import {
 	InputAdornment,
 	IconButton,
 	Link
-} from '@material-ui/core';
+} from '@mui/material';
 
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import { LockOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 
-import { makeStyles } from "@material-ui/core/styles";
+import makeStyles from '@mui/styles/makeStyles';
 
 import { i18n } from "../../translate/i18n";
 
@@ -90,7 +90,7 @@ const SignUp = () => {
 	};
 
 	return (
-		<Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs">
 			<CssBaseline />
 			<div className={classes.paper}>
 				<Avatar className={classes.avatar}>
@@ -158,9 +158,9 @@ const SignUp = () => {
 											endAdornment: (
 												<InputAdornment position="end">
 													<IconButton
-														aria-label="toggle password visibility"
-														onClick={() => setShowPassword((e) => !e)}
-													>
+                                                        aria-label="toggle password visibility"
+                                                        onClick={() => setShowPassword((e) => !e)}
+                                                        size="large">
 														{showPassword ? <VisibilityOff /> : <Visibility />}
 													</IconButton>
 												</InputAdornment>
@@ -196,7 +196,7 @@ const SignUp = () => {
 			</div>
 			<Box mt={5}>{/* <Copyright /> */}</Box>
 		</Container>
-	);
+    );
 };
 
 export default SignUp;

@@ -1,29 +1,26 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
-import { makeStyles } from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
+import { makeStyles } from "@mui/styles";
+import Container from "@mui/material/Container";
 import api from "../../services/api";
-import Connections from "../Connections/";
-import { WhatsAppsContext } from "../../context/WhatsApp/WhatsAppsContext";
 import toastError from "../../errors/toastError";
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import Select, { SelectChangeEvent }  from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import Paper from "@material-ui/core/Paper";
-import Button from '@material-ui/core/Button';
-import MenuItem from '@material-ui/core/MenuItem';
-const http = require('http');
+import TextField from '@mui/material/TextField';
+import Paper from "@mui/material/Paper";
+import Button from '@mui/material/Button';
+import http from 'http';
+//const http = require('http');
 
-const init = {
-  host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-  path: '/disparador',
+const init = { 
+  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+  host: 'http://localhost',
+  path: '/Disparador',
   method: 'POST',
   headers: {
     'content-type': 'application/json; charset=utf-8'
   }
 };
- 
+console.log(init);
+
 const callback = function(response) {
   let result = Buffer.alloc(0);
   response.on('data', function(chunk) {
@@ -39,13 +36,12 @@ async function ZDGSender(number, message, iD, token) {
 	const req = http.request(init, callback);
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
 	await req.write(body);
-	console.log(req);
 	req.end();
 }
 
 const init2 = {
 	host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-	path: '/disparador'
+	path: '/whatsappzdg'
   };
   
 async function GETSender() {
@@ -99,7 +95,6 @@ const Disparador = () => {
 	const classes = useStyles();
 	const [inputs, setInputs] = useState({});
 	const [settings, setSettings] = useState([]);
-	const { whatsApps, loading } = useContext(WhatsAppsContext);
 
 	useEffect(() => {
 		const fetchSession = async () => {
@@ -123,11 +118,6 @@ const Disparador = () => {
 		const value = event.target.value;
 		setInputs(values => ({...values, [name]: value}))
 	  }
-	const [whatsappId, setWhatsappId] = React.useState('');
-
-	const handleChangeSelect = (event: SelectChangeEvent) => {
-		setWhatsappId(event.target.value);
-	};
 	
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -205,11 +195,11 @@ const Disparador = () => {
 		};
 	}, []);
 
-	return (	
-		<div className={classes.root}> 
+	return (
+		<div className={classes.root}>  
 			<Container className={classes.container} maxWidth="sm">
 			<Paper className={classes.paper}>
-			<h1> Disparo automático de mensagens  </h1>			
+			<h1> Disparo automátio de mensagens</h1>
 			</Paper>
 			<Paper className={classes.paper}>
 			<h3><span role="img" aria-label="warning">⚠️</span> Por segurança envie suas mensagens em blocos de 30 contatos.</h3>
@@ -261,24 +251,6 @@ const Disparador = () => {
 					margin="dense"
 				/>
 				</Paper>
-				<FormControl fullWidth>
-					{/* 
-					<InputLabel id="demo-simple-select-label">Qual a conexão? {Connections}</InputLabel>*/}
-					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={whatsappId}
-						label="Conexão"
-						onChange={handleChangeSelect}
-					>
-						
-						 {/*loading ? (
-							<MenuItem  key={whatsApps.id}  value="">"Carregando"</MenuItem> 
-						) : ( whatsApps?.length > 0 && whatsApps.map(whatsApp => (
-							<MenuItem key={whatsApp.id} value={whatsApp.id}>{whatsApp.id} - {whatsApp.name}</MenuItem>
-						)))*/} 
-					</Select>
-					</FormControl>
 				<Paper className={classes.paper}>
 				<TextField style={{marginRight: 5}}
 					id="outlined-basic" 
