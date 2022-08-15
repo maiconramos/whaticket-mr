@@ -24,6 +24,16 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
   return res.status(200).json(whatsapps);
 };
 
+export const whatid = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  const whatsapps = await ListWhatsAppsService();
+  console.log(whatsapps);
+  console.log(whatsapps[0].id);
+  return res.status(200).json(whatsapps);
+};
+
 export const store = async (req: Request, res: Response): Promise<Response> => {
   const WhatsApps = await ListWhatsAppsService();
 

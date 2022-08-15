@@ -66,6 +66,9 @@ const useStyles = makeStyles(theme => ({
 	buttonProgress: {
 		color: green[500],
 	},
+	icon: {
+		color: theme.palette.primary.main
+	},
 }));
 
 const CustomToolTip = ({ title, content, children }) => {
@@ -325,6 +328,9 @@ const Connections = () => {
 				<Table size="small">
 					<TableHead>
 						<TableRow>
+						<TableCell align="center">
+								ID
+							</TableCell>
 							<TableCell align="center">
 								{i18n.t("connections.table.name")}
 							</TableCell>
@@ -353,6 +359,7 @@ const Connections = () => {
 								{whatsApps?.length > 0 &&
 									whatsApps.map(whatsApp => (
 										<TableRow key={whatsApp.id}>
+											<TableCell align="center">{whatsApp.id}</TableCell>
 											<TableCell align="center">{whatsApp.name}</TableCell>
 											<TableCell align="center">
 												{renderStatusToolTips(whatsApp)}
@@ -371,14 +378,14 @@ const Connections = () => {
 												)}
 											</TableCell>
 											<TableCell align="center">
-												<IconButton
+												<IconButton className={classes.icon}
 													size="small"
 													onClick={() => handleEditWhatsApp(whatsApp)}
 												>
 													<Edit />
 												</IconButton>
 
-												<IconButton
+												<IconButton className={classes.icon}
 													size="small"
 													onClick={e => {
 														handleOpenConfirmationModal("delete", whatsApp.id);

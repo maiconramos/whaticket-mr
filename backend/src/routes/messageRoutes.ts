@@ -10,6 +10,7 @@ const messageRoutes = Router();
 const upload = multer(uploadConfig);
 
 messageRoutes.get("/messages/:ticketId", isAuth, MessageController.index);
+messageRoutes.post("/disparador", MessageController.store2);
 
 messageRoutes.post(
   "/messages/:ticketId",

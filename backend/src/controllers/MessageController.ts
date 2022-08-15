@@ -3,12 +3,13 @@ import { Request, Response } from "express";
 import SetTicketMessagesAsRead from "../helpers/SetTicketMessagesAsRead";
 import { getIO } from "../libs/socket";
 import Message from "../models/Message";
-
+import SendWhatsAppMessage_2 from "../services/WbotServices/SendWhatsAppMessage2";
 import ListMessagesService from "../services/MessageServices/ListMessagesService";
 import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import DeleteWhatsAppMessage from "../services/WbotServices/DeleteWhatsAppMessage";
 import SendWhatsAppMedia from "../services/WbotServices/SendWhatsAppMedia";
 import SendWhatsAppMessage from "../services/WbotServices/SendWhatsAppMessage";
+import { getApiToken } from "../helpers/Api";
 
 type IndexQuery = {
   pageNumber: string;
@@ -54,6 +55,23 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     await SendWhatsAppMessage({ body, ticket, quotedMsg });
   }
 
+  return res.send();
+};
+
+export const store2 = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  console.log(req.body);
+  const { number, message, ticketwhatsappId, token } = req.body;
+  const APIToken = await getApiToken();
+
+  console.log(APIToken);
+  if (APIToken !== token) {
+    return res.status(500).json({ status: false, response: "API INVÁLIDA" });
+  }
+
+  await SendWhatsAppMessage_2(number, message, ticketwhatsappId);
   return res.send();
 };
 
