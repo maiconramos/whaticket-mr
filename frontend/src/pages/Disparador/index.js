@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import openSocket from "socket.io-client";
 import { makeStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import api from "../../services/api";
+import { WhatsAppsContext } from "../../context/WhatsApp/WhatsAppsContext";
+import Connections from "../Connections/";
 import toastError from "../../errors/toastError";
 import TextField from '@mui/material/TextField';
 import Paper from "@mui/material/Paper";
 import Button from '@mui/material/Button';
 import http from 'http';
+import { FormControl, Select } from "@mui/material";
 //const http = require('http');
 
 const init = { 
-  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-  host: 'http://localhost',
+  host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+  //host: 'http://localhost',
   path: '/Disparador',
   method: 'POST',
   headers: {
@@ -95,6 +98,7 @@ const Disparador = () => {
 	const classes = useStyles();
 	const [inputs, setInputs] = useState({});
 	const [settings, setSettings] = useState([]);
+	const { whatsApps, loading } = useContext(WhatsAppsContext);
 
 	useEffect(() => {
 		const fetchSession = async () => {
@@ -118,6 +122,12 @@ const Disparador = () => {
 		const value = event.target.value;
 		setInputs(values => ({...values, [name]: value}))
 	  }
+
+	const [whatsappId, setWhatsappId] = React.useState('');
+
+	const handleChangeSelect = (event: SelectChangeEvent) => {
+		setWhatsappId(event.target.value);
+	};
 	
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -199,7 +209,7 @@ const Disparador = () => {
 		<div className={classes.root}>  
 			<Container className={classes.container} maxWidth="sm">
 			<Paper className={classes.paper}>
-			<h1> Disparo automátio de mensagens</h1>
+			<h1> Disparo automático de mensagens</h1>
 			</Paper>
 			<Paper className={classes.paper}>
 			<h3><span role="img" aria-label="warning">⚠️</span> Por segurança envie suas mensagens em blocos de 30 contatos.</h3>
@@ -207,6 +217,7 @@ const Disparador = () => {
 			{/* <Paper className={classes.paper}>
 			<h3><span role="img" aria-label="rule">📜</span> REGRA do DDD para o BRASIL <br></br> DDD menor ou igual a 30, usa o 9 | ex.: 55119012345678 <br></br> DDD maior que 30 não usa o 9 | ex.: 553512345678</h3>
 			</Paper> */}
+
 			<form onSubmit={handleSubmit}>
 				<Paper className={classes.paper}>
 				<TextField 
@@ -251,6 +262,24 @@ const Disparador = () => {
 					margin="dense"
 				/>
 				</Paper>
+				<FormControl fullWidth>
+					{/* 
+					<InputLabel id="demo-simple-select-label">Qual a conexão? {Connections}</InputLabel>*/}
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						value={whatsappId}
+						label="Conexão"
+						onChange={handleChangeSelect}
+					>
+
+						 {/*loading ? (
+							<MenuItem  key={whatsApps.id}  value="">"Carregando"</MenuItem> 
+						) : ( whatsApps?.length > 0 && whatsApps.map(whatsApp => (
+							<MenuItem key={whatsApp.id} value={whatsApp.id}>{whatsApp.id} - {whatsApp.name}</MenuItem>
+						)))*/} 
+					</Select>
+					</FormControl>
 				<Paper className={classes.paper}>
 				<TextField style={{marginRight: 5}}
 					id="outlined-basic" 
