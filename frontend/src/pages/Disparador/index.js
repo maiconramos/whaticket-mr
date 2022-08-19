@@ -10,7 +10,7 @@ import TextField from '@mui/material/TextField';
 import Paper from "@mui/material/Paper";
 import Button from '@mui/material/Button';
 import http from 'http';
-import { FormControl, Select } from "@mui/material";
+import { FormControl, Select, MenuItem } from "@mui/material";
 //const http = require('http');
 
 const init = { 
@@ -271,11 +271,11 @@ const Disparador = () => {
 						onChange={handleChangeSelect}
 					>
 
-						 {/*loading ? (
+						 {loading ? (
 							<MenuItem  key={whatsApps.id}  value="">"Carregando"</MenuItem> 
 						) : ( whatsApps?.length > 0 && whatsApps.map(whatsApp => (
 							<MenuItem key={whatsApp.id} value={whatsApp.id}>{whatsApp.id} - {whatsApp.name}</MenuItem>
-						)))*/} 
+						)))} 
 					</Select>
 					</FormControl>
 				<Paper className={classes.paper}>
