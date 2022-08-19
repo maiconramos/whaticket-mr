@@ -23,7 +23,7 @@ const init = {
   }
 };
 console.log(init);
-
+ 
 const callback = function(response) {
   let result = Buffer.alloc(0);
   response.on('data', function(chunk) {
@@ -38,6 +38,7 @@ const callback = function(response) {
 async function ZDGSender(number, message, iD, token) {
 	const req = http.request(init, callback);
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
+	console.log(body);
 	await req.write(body);
 	req.end();
 }
@@ -214,9 +215,6 @@ const Disparador = () => {
 			<Paper className={classes.paper}>
 			<h3><span role="img" aria-label="warning">⚠️</span> Por segurança envie suas mensagens em blocos de 30 contatos.</h3>
 			</Paper>
-			{/* <Paper className={classes.paper}>
-			<h3><span role="img" aria-label="rule">📜</span> REGRA do DDD para o BRASIL <br></br> DDD menor ou igual a 30, usa o 9 | ex.: 55119012345678 <br></br> DDD maior que 30 não usa o 9 | ex.: 553512345678</h3>
-			</Paper> */}
 
 			<form onSubmit={handleSubmit}>
 				<Paper className={classes.paper}>
