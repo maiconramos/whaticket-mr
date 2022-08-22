@@ -26,7 +26,7 @@ import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) =>({
 	icon: {
-		color: theme.palette.primary.main
+		color: process.env.REACT_APP_COLOR_ICON_SIDEBAR || theme.palette.primary.main
 	},
 }));
 
