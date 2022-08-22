@@ -15,7 +15,7 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-import SendIcon from '@mui/icons-material/Send';
+//import SendIcon from '@mui/icons-material/Send';
 
 import { i18n } from "../translate/i18n";
 import { WhatsAppsContext } from "../context/WhatsApp/WhatsAppsContext";
@@ -100,20 +100,8 @@ const MainListItems = (props) => {
         primary={i18n.t("mainDrawer.listItems.quickAnswers")}
         icon={<QuestionAnswerOutlinedIcon />}
       />
-      <ListItemLink
-        to="/"
-        primary="Dashboard"
-        icon={<DashboardOutlinedIcon />}
-      />
-      <ListItemLink
-        to="/connections"
-        primary={i18n.t("mainDrawer.listItems.connections")}
-        icon={
-          <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
-            <SyncAltIcon />
-          </Badge>
-        }
-      />
+      
+     
       <Can
         role={user.profile}
         perform="drawer-admin-items:view"
@@ -123,6 +111,21 @@ const MainListItems = (props) => {
             <ListSubheader inset>
               {i18n.t("mainDrawer.listItems.administration")}
             </ListSubheader>
+            
+            <ListItemLink
+              to="/dashboard"
+              primary="Dashboard"
+              icon={<DashboardOutlinedIcon />}
+            />
+            <ListItemLink
+                to="/connections"
+                primary={i18n.t("mainDrawer.listItems.connections")}
+                icon={
+                  <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
+                    <SyncAltIcon />
+                  </Badge>
+                }
+              />
             <ListItemLink
               to="/users"
               primary={i18n.t("mainDrawer.listItems.users")}
