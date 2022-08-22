@@ -20,7 +20,7 @@ const App = () => {
       },
     },
     palette: {
-      primary: { main: "#2576d2" },
+      primary: { main: process.env.REACT_APP_COLOR_PALETTE_PRIMARY || "#2576d2" },
     },
   }, locale));
 
