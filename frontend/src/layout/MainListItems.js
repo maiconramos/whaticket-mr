@@ -82,6 +82,24 @@ const MainListItems = (props) => {
 
   return (
     <div onClick={drawerClose}>
+    <ListItemLink
+        to="/tickets"
+        primary={i18n.t("mainDrawer.listItems.tickets")}
+        icon={<WhatsAppIcon />}
+      />
+
+      <ListItemLink
+        to="/contacts"
+        primary={i18n.t("mainDrawer.listItems.contacts")}
+        icon={<ContactPhoneOutlinedIcon />}
+      />
+      
+      
+      <ListItemLink
+        to="/quickAnswers"
+        primary={i18n.t("mainDrawer.listItems.quickAnswers")}
+        icon={<QuestionAnswerOutlinedIcon />}
+      />
       <ListItemLink
         to="/"
         primary="Dashboard"
@@ -95,27 +113,6 @@ const MainListItems = (props) => {
             <SyncAltIcon />
           </Badge>
         }
-      />
-      <ListItemLink
-        to="/tickets"
-        primary={i18n.t("mainDrawer.listItems.tickets")}
-        icon={<WhatsAppIcon />}
-      />
-
-      <ListItemLink
-        to="/contacts"
-        primary={i18n.t("mainDrawer.listItems.contacts")}
-        icon={<ContactPhoneOutlinedIcon />}
-      />
-      <ListItemLink
-        to="/quickAnswers"
-        primary={i18n.t("mainDrawer.listItems.quickAnswers")}
-        icon={<QuestionAnswerOutlinedIcon />}
-      />
-      <ListItemLink
-              to="/Disparador"
-              primary={i18n.t("mainDrawer.listItems.Disparador")}
-              icon={<SendIcon />}
       />
       <Can
         role={user.profile}
