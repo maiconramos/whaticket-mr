@@ -14,8 +14,8 @@ import { FormControl, Select, MenuItem } from "@mui/material";
 //const http = require('http');
 
 const init = { 
-  host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-  //host: 'http://localhost',
+  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+  host: process.env.REACT_APP_BACKEND_URL,
   path: '/Disparador',
   method: 'POST',
   headers: {
