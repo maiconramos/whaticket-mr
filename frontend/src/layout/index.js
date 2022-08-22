@@ -49,7 +49,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-end",
     padding: "0 8px",
     minHeight: "48px",
+    backgroundColor: process.env.REACT_APP_BACKGROUND_ICON_TOOLBAR || "#ffffff" 
   },
+  
+  toolbarIconImg: {
+      maxHeight: process.env.REACT_APP_HEIGHT_ICON_TOOLBAR || "80px",
+      padding: "5px",
+  },
+  
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
@@ -181,7 +188,7 @@ const LoggedInLayout = ({ children }) => {
         open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
-         <img src={logodash} alt="logo" style={{maxHeight: "40px"}} />
+         <img src={logodash} className={classes.toolbarIconImg} alt="logo"  />
           <IconButton onClick={() => setDrawerOpen(!drawerOpen)} size="large">
             <ChevronLeftIcon />
           </IconButton>
