@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { Formik, Form, Field } from "formik";
 
 import {
-	Avatar,
+	//Avatar,
 	Button,
 	CssBaseline,
 	TextField,
