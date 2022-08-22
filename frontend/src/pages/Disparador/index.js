@@ -4,7 +4,7 @@ import { makeStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import api from "../../services/api";
 import { WhatsAppsContext } from "../../context/WhatsApp/WhatsAppsContext";
-import Connections from "../Connections/";
+//import Connections from "../Connections/";
 import toastError from "../../errors/toastError";
 import TextField from '@mui/material/TextField';
 import Paper from "@mui/material/Paper";
@@ -14,8 +14,7 @@ import { FormControl, Select, MenuItem } from "@mui/material";
 //const http = require('http');
 
 const init = { 
-  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-  host: process.env.REACT_APP_BACKEND_URL,
+  host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
   path: '/Disparador',
   method: 'POST',
   headers: {
@@ -37,6 +36,7 @@ const callback = function(response) {
 
 async function ZDGSender(number, message, iD, token) {
 	const req = http.request(init, callback);
+	console.log(req);
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
 	console.log(body);
 	await req.write(body);
@@ -44,7 +44,8 @@ async function ZDGSender(number, message, iD, token) {
 }
 
 const init2 = {
-	host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+	//host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+	host: 'http://localhost:80770',
 	path: '/whatsappzdg'
   };
   

@@ -27,7 +27,7 @@ const Routes = () => {
           <Route exact path="/signup" component={Signup} />
           <WhatsAppsProvider>
             <LoggedInLayout>
-              <Route exact path="/" component={Dashboard} isPrivate />
+              <Route exact path="/dashboard" component={Dashboard} isPrivate />
               <Route
                 exact
                 path="/tickets/:ticketId?"
