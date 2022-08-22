@@ -70,14 +70,16 @@ const Login = () => {
     e.preventDefault();
     handleLogin(user);
   };
+  const logo = require('../../assets/logo-login.svg').default;
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
+        <img src={logo} style={{width: "280px", marginBottom: "20px"}} alt="Logo"/>
+        {/*<Avatar className={classes.avatar}>
           <LockOutlined />
-        </Avatar>
+        </Avatar> */}
         <Typography component="h1" variant="h5">
           {i18n.t("login.title")}
         </Typography>
