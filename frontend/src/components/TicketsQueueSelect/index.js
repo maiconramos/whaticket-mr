@@ -21,7 +21,7 @@ const TicketsQueueSelect = ({
 				<Select
 					multiple
 					displayEmpty
-					variant="outlined"
+					variant="standard"
 					value={selectedQueueIds}
 					onChange={handleChange}
 					MenuProps={{

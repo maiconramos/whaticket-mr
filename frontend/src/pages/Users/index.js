@@ -208,6 +208,7 @@ const Users = () => {
         <MainHeaderButtonsWrapper>
           <TextField
             placeholder={i18n.t("contacts.searchPlaceholder")}
+            variant="standard"
             type="search"
             value={searchParam}
             onChange={handleSearch}

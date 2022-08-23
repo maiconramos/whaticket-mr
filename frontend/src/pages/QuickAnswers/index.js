@@ -214,6 +214,7 @@ const QuickAnswers = () => {
             type="search"
             value={searchParam}
             onChange={handleSearch}
+            variant="standard"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">

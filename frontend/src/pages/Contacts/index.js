@@ -249,6 +249,7 @@ const Contacts = () => {
           <TextField
             placeholder={i18n.t("contacts.searchPlaceholder")}
             type="search"
+            variant="standard"
             value={searchParam}
             onChange={handleSearch}
             InputProps={{
