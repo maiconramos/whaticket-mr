@@ -7,9 +7,9 @@ import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Divider from "@mui/material/Divider";
 import { Badge } from "@mui/material";
-import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
+import DesktopMacOutlinedIcon from '@mui/icons-material/DesktopMacOutlined';
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import SyncAltIcon from "@mui/icons-material/SyncAlt";
+import QrCodeScannerIcon from '@mui/icons-material/QrCodeScanner';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
@@ -128,14 +128,14 @@ const MainListItems = (props) => {
             <ListItemLink
               to="/dashboard"
               primary="Dashboard"
-              icon={<DashboardOutlinedIcon />}
+              icon={<DesktopMacOutlinedIcon />}
             />
             <ListItemLink
                 to="/connections"
                 primary={i18n.t("mainDrawer.listItems.connections")}
                 icon={
                   <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
-                    <SyncAltIcon />
+                    <QrCodeScannerIcon />
                   </Badge>
                 }
               />
