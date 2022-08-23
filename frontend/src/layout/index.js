@@ -84,11 +84,15 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     position: "relative",
     whiteSpace: "nowrap",
+    backgroundColor: process.env.REACT_APP_BACKGROUND_SIDEBAR || "#ffffff",
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  },
+  toolbarIconArrow: {
+    color: process.env.REACT_APP_COLOR_ICON_ARROW_TOOLBAR || "inherit",
   },
   drawerPaperClose: {
     overflowX: "hidden",
@@ -189,15 +193,15 @@ const LoggedInLayout = ({ children }) => {
       >
         <div className={classes.toolbarIcon}>
          <img src={logodash} className={classes.toolbarIconImg} alt="logo"  />
-          <IconButton onClick={() => setDrawerOpen(!drawerOpen)} size="large">
+          <IconButton className={classes.toolbarIconArrow} onClick={() => setDrawerOpen(!drawerOpen)} size="large">
             <ChevronLeftIcon />
           </IconButton>
         </div>
-        <Divider />
+        <Divider className={classes.divisorSidebar}  />
         <List>
           <MainListItems drawerClose={drawerClose} />
         </List>
-        <Divider />
+        <Divider  className={classes.divisorSidebar}  />
       </Drawer>
       <UserModal
         open={userModalOpen}

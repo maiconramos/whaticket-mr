@@ -28,6 +28,19 @@ const useStyles = makeStyles((theme) =>({
 	icon: {
 		color: process.env.REACT_APP_COLOR_ICON_SIDEBAR || theme.palette.primary.main
 	},
+  linkSidebar: {
+    color: process.env.REACT_APP_COLOR_LINK_SIDEBAR || "rgba(0, 0, 0, 0.87)",
+    '&:hover': {
+      color: process.env.REACT_APP_COLOR_LINK_HOVER_SIDEBAR || "rgba(0, 0, 0, 0.87)",
+   },
+  },
+  divisorSidebar: {
+    borderColor: process.env.REACT_APP_BORDER_COLOR_DIVISOR_SIDEBAR || "rgba(0, 0, 0, 0.12)"
+  },
+  subHeaderSidebar: {
+    backgroundColor: process.env.REACT_APP_BACKGROUND_SUBHEADER_SIDEBAR || "#ffffff",
+    color: process.env.REACT_APP_COLOR_SUBHEADER_SIDEBAR || "rgba(0, 0, 0, 0.87)",
+  }
 }));
 
 function ListItemLink(props) {
@@ -44,7 +57,7 @@ function ListItemLink(props) {
 
   return (
     <li>
-      <ListItem button component={renderLink} className={className}>
+      <ListItem button component={renderLink} className={`${className} ${classes.linkSidebar}`}>
         {icon ? <ListItemIcon className={classes.icon}>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} />
       </ListItem>
@@ -57,7 +70,7 @@ const MainListItems = (props) => {
   const { whatsApps } = useContext(WhatsAppsContext);
   const { user } = useContext(AuthContext);
   const [connectionWarning, setConnectionWarning] = useState(false);
-
+  const classes = useStyles();
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       if (whatsApps.length > 0) {
@@ -107,8 +120,8 @@ const MainListItems = (props) => {
         perform="drawer-admin-items:view"
         yes={() => (
           <>
-            <Divider />
-            <ListSubheader inset>
+            <Divider className={classes.divisorSidebar} />
+            <ListSubheader className={classes.subHeaderSidebar} inset>
               {i18n.t("mainDrawer.listItems.administration")}
             </ListSubheader>
             
