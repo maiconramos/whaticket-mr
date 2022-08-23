@@ -9,6 +9,14 @@ const App = () => {
   const [locale, setLocale] = useState();
 
   const theme = createTheme(adaptV4Theme({
+    typography: {
+      fontFamily: [
+        "Public Sans",
+        "Roboto",
+        "Arial",
+        "sans-serif"
+      ].join(",")
+    },
     scrollbarStyles: {
       "&::-webkit-scrollbar": {
         width: "8px",
