@@ -261,8 +261,8 @@ const Contacts = () => {
             }}
           />
           <Button
-            variant="contained"
-            color="primary"
+            variant="outlined"
+            color="secondary"
             onClick={(e) => setConfirmOpen(true)}
           >
             {i18n.t("contacts.buttons.import")}

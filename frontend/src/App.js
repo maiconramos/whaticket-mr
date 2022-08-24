@@ -8,7 +8,7 @@ import { ptBR } from "@mui/material/locale";
 const App = () => {
   const [locale, setLocale] = useState();
 
-  const theme = createTheme(adaptV4Theme({
+  const theme = createTheme(({
     typography: {
       fontFamily: [
         "Public Sans",
@@ -29,6 +29,7 @@ const App = () => {
     },
     palette: {
       primary: { main: process.env.REACT_APP_COLOR_PALETTE_PRIMARY || "#2576d2" },
+      secondary: { main: process.env.REACT_APP_COLOR_PALETTE_SECONDARY || "#f44336" },
     },
   }, locale));
 
