@@ -184,8 +184,8 @@ const messages = {
       },
       queueModal: {
         title: {
-          add: "Adicionar fila",
-          edit: "Editar fila",
+          add: "Adicionar setor",
+          edit: "Editar setor",
         },
         form: {
           name: "Nome",
@@ -226,7 +226,7 @@ const messages = {
         },
       },
       ticketsQueueSelect: {
-        placeholder: "Filas",
+        placeholder: "Setores",
       },
       tickets: {
         toasts: {
@@ -250,9 +250,9 @@ const messages = {
       transferTicketModal: {
         title: "Transferir Ticket",
         fieldLabel: "Digite para buscar usuários",
-        fieldQueueLabel: "Transferir para fila",
+        fieldQueueLabel: "Transferir para setor",
         fieldConnectionLabel: "Transferir para conexão",
-        fieldQueuePlaceholder: "Selecione uma fila",
+        fieldQueuePlaceholder: "Selecione um setor",
         fieldConnectionPlaceholder: "Selecione uma conexão",
         noOptions: "Nenhum usuário encontrado com esse nome",
         buttons: {
@@ -303,7 +303,7 @@ const messages = {
         noTickets: "Nenhuma notificação.",
       },
       queues: {
-        title: "Filas",
+        title: "Setores",
         table: {
           name: "Nome",
           color: "Cor",
@@ -311,16 +311,16 @@ const messages = {
           actions: "Ações",
         },
         buttons: {
-          add: "Adicionar fila",
+          add: "Adicionar setor",
         },
         confirmationModal: {
           deleteTitle: "Excluir",
           deleteMessage:
-            "Você tem certeza? Essa ação não pode ser revertida! Os tickets dessa fila continuarão existindo, mas não terão mais nenhuma fila atribuída.",
+            "Você tem certeza? Essa ação não pode ser revertida! Os tickets desse setor continuarão existindo, mas não terão mais nenhuma setor atribuído.",
         },
       },
       queueSelect: {
-        inputLabel: "Filas",
+        inputLabel: "Setores",
       },
       quickAnswers: {
         title: "Respostas Rápidas",
@@ -360,7 +360,7 @@ const messages = {
         confirmationModal: {
           deleteTitle: "Excluir",
           deleteMessage:
-            "Todos os dados do usuário serão perdidos. Os tickets abertos deste usuário serão movidos para a fila.",
+            "Todos os dados do usuário serão perdidos. Os tickets abertos deste usuário serão movidos para o setor.",
         },
       },
       settings: {
@@ -461,7 +461,7 @@ const messages = {
         ERR_QUEUE_COLOR_ALREADY_EXISTS:
           "Esta cor já está em uso, escolha outra.",
         ERR_WAPP_GREETING_REQUIRED:
-          "A mensagem de saudação é obrigatório quando há mais de uma fila.",
+          "A mensagem de saudação é obrigatório quando há mais de um setor.",
       },
     },
   },

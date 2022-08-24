@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Routes from "./routes";
 import "react-toastify/dist/ReactToastify.css";
 
-import { createTheme, ThemeProvider, StyledEngineProvider, adaptV4Theme } from "@mui/material";
+import { createTheme, ThemeProvider, StyledEngineProvider } from "@mui/material";
 import { ptBR } from "@mui/material/locale";
 
 const App = () => {

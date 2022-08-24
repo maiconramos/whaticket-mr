@@ -18,7 +18,7 @@ import { i18n } from "../../translate/i18n";
 import DoneIcon from '@mui/icons-material/Done';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import ReplayIcon from '@mui/icons-material/Replay';
-import StopIcon from '@mui/icons-material/Stop';
+//import StopIcon from '@mui/icons-material/Stop';
 import api from "../../services/api";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 //import ButtonWithSpinner from "../ButtonWithSpinner";
@@ -125,7 +125,10 @@ const useStyles = makeStyles(theme => ({
 const TicketListItem = ({ ticket }) => {
 	const classes = useStyles();
 	const history = useHistory();
-	const [loading, setLoading] = useState(false);
+	const [
+		//loading, 
+		setLoading
+	] = useState(false);
 	const { ticketId } = useParams();
 	const isMounted = useRef(true);
 	const { user } = useContext(AuthContext);
