@@ -102,19 +102,13 @@ const TicketsManager = () => {
 
   const [searchParam, setSearchParam] = useState("");
   const [tab, setTab] = useState("open");
-  const [
-    tabOpen, 
-    //setTabOpen
-  ] = useState("open");
+  const [tabOpen, setTabOpen] = useState("open");
   const [newTicketModalOpen, setNewTicketModalOpen] = useState(false);
   const [showAllTickets, setShowAllTickets] = useState(false);
   const searchInputRef = useRef();
   const { user } = useContext(AuthContext);
 
-  const [
-    //openCount, 
-    setOpenCount
-  ] = useState(0);
+  const [openCount, setOpenCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
 
   const userQueueIds = user.queues.map((q) => q.id);

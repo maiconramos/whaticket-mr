@@ -125,10 +125,7 @@ const useStyles = makeStyles(theme => ({
 const TicketListItem = ({ ticket }) => {
 	const classes = useStyles();
 	const history = useHistory();
-	const [
-		//loading, 
-		setLoading
-	] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const { ticketId } = useParams();
 	const isMounted = useRef(true);
 	const { user } = useContext(AuthContext);
