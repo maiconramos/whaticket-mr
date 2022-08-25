@@ -253,6 +253,11 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "inherit",
     padding: 10,
   },
+
+  ticketNumber: {
+    color: "#808888",
+    padding: 8,
+  },
 }));
 
 const reducer = (state, action) => {
@@ -550,6 +555,22 @@ const MessagesList = ({ ticketId, isGroup }) => {
       );
     }
   };
+  /* Mostrar separação, com número do ticket nas mensagens */
+  const renderNumberTicket = (message, index) => {
+    if (index < messagesList.length && index > 0) {
+      let messageTicket = message.ticketId;
+      let previousMessageTicket = messagesList[index - 1].ticketId;
+
+      if (messageTicket !== previousMessageTicket) {
+        return (
+          <div key={`ticket-${message.id}`} className={classes.ticketNumber}>
+            #ticket: {messageTicket}
+            <hr />
+          </div>
+        );
+      }
+    }
+  };
 
   const renderMessageDivider = (message, index) => {
     if (index < messagesList.length && index > 0) {
@@ -596,6 +617,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
             <React.Fragment key={message.id}>
               {renderDailyTimestamps(message, index)}
               {renderMessageDivider(message, index)}
+              {renderNumberTicket(message, index)}
               <div className={classes.messageLeft}>
                 <IconButton
                   variant="contained"
@@ -630,6 +652,7 @@ const MessagesList = ({ ticketId, isGroup }) => {
             <React.Fragment key={message.id}>
               {renderDailyTimestamps(message, index)}
               {renderMessageDivider(message, index)}
+              {renderNumberTicket(message, index)}
               <div className={classes.messageRight}>
                 <IconButton
                   variant="contained"
