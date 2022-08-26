@@ -12,6 +12,12 @@ module.exports = {
           updatedAt: new Date()
         },
         {
+          key: "call",
+          value: "enabled",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
           key: "timeCreateNewTicket",
           value: "43200",
           createdAt: new Date(),

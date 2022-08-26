@@ -391,6 +391,13 @@ const messages = {
           "86400" : "24 horas",
           "172800" : "48 horas",
         },
+      },
+      call: {
+        name: "Aceitar chamadas",
+        options: {
+          enabled: "Ativado",
+          disabled: "Desativado",
+        },
       },  
         },
       },
