@@ -25,6 +25,8 @@ import UserModal from "../components/UserModal";
 import { AuthContext } from "../context/Auth/AuthContext";
 import BackdropLoading from "../components/BackdropLoading";
 import { i18n } from "../translate/i18n";
+import api from "../services/api";
+import toastError from "../errors/toastError";
 import { system } from "../../package.json";
 import logodash from "../assets/logo-dash.svg";
 
@@ -141,8 +143,22 @@ const LoggedInLayout = ({ children }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
+
     if (document.body.offsetWidth > 600) {
-      setDrawerOpen(true);
+      const fetchDrawerState = async () => {
+        try {
+          const { data } = await api.get("/settings");
+
+          const settingIndex = data.filter(s => s.key === 'sideMenu');
+
+          setDrawerOpen(settingIndex[0].value === "disabled" ? false : true);
+
+        } catch (err) {
+          setDrawerOpen(true);
+          toastError(err);
+        }
+      };
+      fetchDrawerState();
     }
   }, []);
 

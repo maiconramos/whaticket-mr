@@ -407,7 +407,15 @@ const messages = {
           enabled: "Ativado",
           disabled: "Desativado",
         },
-      },  
+      }, 
+      sideMenu: {
+        name: "Menu Lateral Inicial",
+        note: "Se habilitado, o menu lateral irá iniciar fechado",
+        options: {
+          enabled: "Aberto",
+          disabled: "Fechado",
+        },
+      }, 
       CheckMsgIsGroup: {
         name: "Ignorar Mensagens de Grupos",
         options: {

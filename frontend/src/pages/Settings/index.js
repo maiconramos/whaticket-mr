@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import openSocket from "../../services/socket-io";
 
 import makeStyles from '@mui/styles/makeStyles';
+import withStyles from '@mui/styles/withStyles';
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -13,6 +14,8 @@ import Tooltip from "@mui/material/Tooltip";
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n.js";
 import toastError from "../../errors/toastError";
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -38,6 +41,59 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
+const IOSSwitch = withStyles((theme) => ({
+	root: {
+		width: 42,
+		height: 26,
+		padding: 0,
+		margin: theme.spacing(1),
+	},
+	switchBase: {
+		padding: 1,
+		'&$checked': {
+			transform: 'translateX(16px)',
+			color: theme.palette.common.white,
+			'& + $track': {
+				backgroundColor: '#52d869',
+				opacity: 1,
+				border: 'none',
+			},
+		},
+		'&$focusVisible $thumb': {
+			color: '#52d869',
+			border: '6px solid #fff',
+		},
+	},
+	thumb: {
+		width: 24,
+		height: 24,
+	},
+	track: {
+		borderRadius: 26 / 2,
+		border: `1px solid ${theme.palette.grey[400]}`,
+		backgroundColor: theme.palette.grey[50],
+		opacity: 1,
+		transition: theme.transitions.create(['background-color', 'border']),
+	},
+	checked: {},
+	focusVisible: {},
+}))
+	(({ classes, ...props }) => {
+		return (
+			<Switch
+				focusVisibleClassName={classes.focusVisible}
+				disableRipple
+				classes={{
+					root: classes.root,
+					switchBase: classes.switchBase,
+					thumb: classes.thumb,
+					track: classes.track,
+					checked: classes.checked,
+				}}
+				{...props}
+			/>
+		);
+	});
 const Settings = () => {
 	const classes = useStyles();
 
@@ -74,6 +130,21 @@ const Settings = () => {
 		};
 	}, []);
 
+
+	const handleChangeBooleanSetting = async e => {
+		const selectedValue = e.target.checked ? "enabled" : "disabled";
+		const settingKey = e.target.name;
+
+		try {
+			await api.put(`/settings/${settingKey}`, {
+				value: selectedValue,
+			});
+			toast.success(i18n.t("settings.success"));
+		} catch (err) {
+			toastError(err);
+		}
+	};
+
 	const handleChangeSetting = async e => {
 		const selectedValue = e.target.value;
 		const settingKey = e.target.name;
@@ -98,33 +169,66 @@ const Settings = () => {
 			<Container className={classes.container} maxWidth="sm">
 				<Typography variant="body2" gutterBottom>
 					{i18n.t("settings.title")}
-				</Typography>
+				</Typography>				
 				<Paper className={classes.paper}>
-					<Typography variant="body1">
-						{i18n.t("settings.settings.userCreation.name")}
-					</Typography>
-					<Select
-						margin="dense"
-						variant="outlined"
-						native
-						id="userCreation-setting"
-						name="userCreation"
-						value={
-							settings && settings.length > 0 && getSettingValue("userCreation")
-						}
-						className={classes.settingOption}
-						onChange={handleChangeSetting}
-					>
-						<option value="enabled">
-							{i18n.t("settings.settings.userCreation.options.enabled")}
-						</option>
-						<option value="disabled">
-							{i18n.t("settings.settings.userCreation.options.disabled")}
-						</option>
-					</Select>
-
+					<Tooltip title={i18n.t("settings.settings.userCreation.note")}>
+						<FormControlLabel
+							control={
+								<IOSSwitch
+									checked={settings && settings.length > 0 && getSettingValue("userCreation") === "enabled"}
+									onChange={handleChangeBooleanSetting} name="userCreation"
+								/>
+							}
+							label={i18n.t("settings.settings.userCreation.name")}
+						/>
+					</Tooltip>
 				</Paper>
 				<Typography variant="body2" gutterBottom></Typography>
+
+				<Paper className={classes.paper}>
+					<Tooltip title={i18n.t("settings.settings.CheckMsgIsGroup.note")}>
+						<FormControlLabel
+							control={
+								<IOSSwitch
+									checked={settings && settings.length > 0 && getSettingValue("CheckMsgIsGroup") === "enabled"}
+									onChange={handleChangeBooleanSetting} name="CheckMsgIsGroup"
+								/>
+							} label={i18n.t("settings.settings.CheckMsgIsGroup.name")}
+						/>
+					</Tooltip>
+				</Paper>
+
+				<Typography variant="body2" gutterBottom></Typography>
+
+				<Paper className={classes.paper}>
+					<Tooltip title={i18n.t("settings.settings.call.note")}>
+						<FormControlLabel
+							control={
+								<IOSSwitch
+									checked={settings && settings.length > 0 && getSettingValue("call") === "enabled"}
+									onChange={handleChangeBooleanSetting} name="call"
+								/>}
+							label={i18n.t("settings.settings.call.name")}
+						/>
+					</Tooltip>
+				</Paper>
+
+				<Typography variant="body2" gutterBottom></Typography>
+				<Paper className={classes.paper}>
+					<Tooltip title={i18n.t("settings.settings.sideMenu.note")}>
+						<FormControlLabel
+							control={
+								<IOSSwitch
+									checked={settings && settings.length > 0 && getSettingValue("sideMenu") === "enabled"}
+									onChange={handleChangeBooleanSetting} name="sideMenu"
+								/>}
+							label={i18n.t("settings.settings.sideMenu.name")}
+						/>
+					</Tooltip>
+				</Paper>
+				
+
+				
 				<Tooltip title={i18n.t("settings.settings.timeCreateNewTicket.note")}>
 					<Paper className={classes.paper} elevation={3}>
 						<Typography variant="body1">
@@ -177,59 +281,7 @@ const Settings = () => {
 							</option>
 						</Select>
 					</Paper>
-				</Tooltip>
-
-				<Typography variant="body2" gutterBottom></Typography>
-				<Paper className={classes.paper}>
-
-					<Typography variant="body1">
-						{i18n.t("settings.settings.call.name")}
-					</Typography>
-					<Select
-						margin="dense"
-						variant="outlined"
-						native
-						id="call-setting"
-						name="call"
-						value={
-							settings && settings.length > 0 && getSettingValue("call")
-						}
-						className={classes.settingOption}
-						onChange={handleChangeSetting}
-					>
-						<option value="enabled">
-							{i18n.t("settings.settings.call.options.enabled")}
-						</option>
-						<option value="disabled">
-							{i18n.t("settings.settings.call.options.disabled")}
-						</option>
-					</Select>
-				</Paper>
-
-				<Paper className={classes.paper}>
-					<Typography variant="body1">
-						{i18n.t("settings.settings.CheckMsgIsGroup.name")}
-					</Typography>
-					<Select
-						margin="dense"
-						variant="outlined"
-						native
-						id="CheckMsgIsGroup-setting"
-						name="CheckMsgIsGroup"
-						value={
-							settings && settings.length > 0 && getSettingValue("CheckMsgIsGroup")
-						}
-						className={classes.settingOption}
-						onChange={handleChangeSetting}
-					>
-						<option value="enabled">
-							{i18n.t("settings.settings.CheckMsgIsGroup.options.enabled")}
-						</option>
-						<option value="disabled">
-							{i18n.t("settings.settings.CheckMsgIsGroup.options.disabled")}
-						</option>
-					</Select>
-				</Paper>
+				</Tooltip>	
 
 			</Container>
 		</div>
