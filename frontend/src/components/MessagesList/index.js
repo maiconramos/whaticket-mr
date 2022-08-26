@@ -22,7 +22,9 @@ import LocationPreview from "../LocationPreview";
 import ModalImageCors from "../ModalImageCors";
 import MessageOptionsMenu from "../MessageOptionsMenu";
 import whatsBackground from "../../assets/wa-background.png";
-
+import Chip from '@mui/material/Chip';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import TagOutlinedIcon from '@mui/icons-material/TagOutlined';
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
 
@@ -258,6 +260,9 @@ const useStyles = makeStyles((theme) => ({
     color: "#808888",
     padding: 8,
   },
+  ticketNumberChip: {
+    fontWeight: 700,
+  }
 }));
 
 const reducer = (state, action) => {
@@ -564,7 +569,13 @@ const MessagesList = ({ ticketId, isGroup }) => {
       if (messageTicket !== previousMessageTicket) {
         return (
           <div key={`ticket-${message.id}`} className={classes.ticketNumber}>
-            #ticket: {messageTicket}
+            <Chip
+              key={`ticket-${message.id}`}
+              icon={<TagOutlinedIcon />} 
+              label={`Ticket: ${messageTicket}`}
+              color="primary"
+              className={classes.ticketNumberChip}
+            />            
             <hr />
           </div>
         );
