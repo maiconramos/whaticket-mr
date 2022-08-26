@@ -208,7 +208,9 @@ const messages = {
           email: "Email",
           password: "Senha",
           profile: "Perfil",
+          admin: "Administrador",
           whatsapp: "Conexão Padrão",
+          user: "Usuário",
         },
         buttons: {
           okAdd: "Adicionar",
