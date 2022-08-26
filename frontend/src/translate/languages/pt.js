@@ -222,7 +222,7 @@ const messages = {
       },
       ticketsManager: {
         buttons: {
-          newTicket: "Novo",
+          newTicket: "Nova Conversa",
         },
       },
       ticketsQueueSelect: {
