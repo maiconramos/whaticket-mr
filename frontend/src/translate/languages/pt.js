@@ -403,6 +403,7 @@ const messages = {
       },
       call: {
         name: "Aceitar chamadas",
+        note: "Se desabilitado, o cliente receberá uma mensagem informando que não aceita chamadas de voz/vídeo",
         options: {
           enabled: "Ativado",
           disabled: "Desativado",
