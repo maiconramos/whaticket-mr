@@ -10,6 +10,8 @@ import Ticket from "../../components/Ticket/";
 import { i18n } from "../../translate/i18n";
 import Hidden from "@mui/material/Hidden";
 
+import logo from "../../assets/logo-login.svg";
+
 const useStyles = makeStyles((theme) => ({
   chatContainer: {
     flex: 1,
@@ -91,7 +93,12 @@ const Chat = () => {
               <Hidden only={["sm", "xs"]}>
                 <Paper className={classes.welcomeMsg}>
                   {/* <Paper square variant="outlined" className={classes.welcomeMsg}> */}
-                  <span>{i18n.t("chat.noTicketMessage")}</span>
+                  <span>
+                    <center>
+                      <img src={logo} width="50%" alt=""/>
+                    </center>
+                    {i18n.t("chat.noTicketMessage")}
+                  </span>
                 </Paper>
               </Hidden>
             )}

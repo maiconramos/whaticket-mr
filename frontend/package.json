@@ -1,6 +1,11 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "system": {
+    "version": "1.0.1",
+    "name": "Multiatendimento",
+    "url": "https://maiconramos.com/multiatendimento"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.0",

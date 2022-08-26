@@ -25,6 +25,7 @@ import UserModal from "../components/UserModal";
 import { AuthContext } from "../context/Auth/AuthContext";
 import BackdropLoading from "../components/BackdropLoading";
 import { i18n } from "../translate/i18n";
+import { system } from "../../package.json";
 import logodash from "../assets/logo-dash.svg";
 
 const drawerWidth = 240;
@@ -122,6 +123,11 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
   },
+  systemCss: {
+    opacity: "0.5",
+    fontSize: "12px",
+    marginLeft: "8px",
+  }
 }));
 
 const LoggedInLayout = ({ children }) => {
@@ -233,7 +239,10 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            Multiatendimento
+            {system.name}
+            <span className={classes.systemCss}>
+              {"(v"}{system.version}{")"}
+            </span>
           </Typography>
           {user.id && <NotificationsPopOver />}
 
