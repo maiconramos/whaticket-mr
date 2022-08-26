@@ -376,7 +376,7 @@ const messages = {
           },
 
       timeCreateNewTicket: {
-        name: "Mensagem de boas-vindas após",
+        name: "Criar um novo ticket depois de:",
         note: "Selecione o tempo que será necessário para abrir um novo ticket, caso o cliente entre em contatos novamente",
         options: {
           "10": "10 Segundos",
