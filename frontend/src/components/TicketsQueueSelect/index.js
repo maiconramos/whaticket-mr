@@ -32,8 +32,7 @@ const TicketsQueueSelect = ({
 						transformOrigin: {
 							vertical: "top",
 							horizontal: "left",
-						},
-						getContentAnchorEl: null,
+						}
 					}}
 					renderValue={() => i18n.t("ticketsQueueSelect.placeholder")}
 				>

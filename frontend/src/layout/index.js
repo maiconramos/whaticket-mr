@@ -250,7 +250,6 @@ const LoggedInLayout = ({ children }) => {
             <Menu
               id="menu-appbar"
               anchorEl={anchorEl}
-              getContentAnchorEl={null}
               anchorOrigin={{
                 vertical: "bottom",
                 horizontal: "right",
