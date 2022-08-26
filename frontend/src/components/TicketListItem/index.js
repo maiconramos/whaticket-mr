@@ -26,7 +26,8 @@ import MarkdownWrapper from "../MarkdownWrapper";
 import { Tooltip } from "@mui/material";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import toastError from "../../errors/toastError";
-
+import SimCardOutlinedIcon from '@mui/icons-material/SimCardOutlined';
+import Chip from '@mui/material/Chip';
 const useStyles = makeStyles(theme => ({
 	ticket: {
 		position: "relative",
@@ -73,6 +74,7 @@ const useStyles = makeStyles(theme => ({
 		justifySelf: "flex-end",
 		marginRight: 32,
 		marginLeft: "auto",
+		right: "3px",
 	},
 
 	contactLastMessage: {
@@ -118,7 +120,7 @@ const useStyles = makeStyles(theme => ({
 		paddingLeft: 5,
 		paddingRight: 5,
 		borderRadius: 10,
-		fontSize: "0.9em"
+		fontSize: "0.8em"
 	},
 }));
 
@@ -247,7 +249,7 @@ const TicketListItem = ({ ticket }) => {
 							{ticket.status === "closed" && (
 								<Badge
 									className={classes.closedBadge}
-									badgeContent={"closed"}
+									badgeContent={"fechado"}
 									color="primary"
 								/>
 							)}
@@ -266,7 +268,14 @@ const TicketListItem = ({ ticket }) => {
 								</Typography>
 							)}
 							{ticket.whatsappId && (
-								<div className={classes.userTag} title={i18n.t("ticketsList.connectionTitle")}>{ticket.whatsapp?.name}</div>
+								 <Chip
+								 icon={<SimCardOutlinedIcon />} 
+								 label={ticket.whatsapp?.name}
+								 color="primary"
+								 size="small"
+								 className={classes.userTag}
+								 title={i18n.t("ticketsList.connectionTitle")}
+							   />
 							)}
 						</span>
 					}

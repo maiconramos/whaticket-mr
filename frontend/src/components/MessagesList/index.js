@@ -23,7 +23,6 @@ import ModalImageCors from "../ModalImageCors";
 import MessageOptionsMenu from "../MessageOptionsMenu";
 import whatsBackground from "../../assets/wa-background.png";
 import Chip from '@mui/material/Chip';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import TagOutlinedIcon from '@mui/icons-material/TagOutlined';
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
