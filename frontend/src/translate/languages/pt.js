@@ -293,6 +293,13 @@ const messages = {
           administration: "Administração",
           users: "Usuários",
           settings: "Configurações",
+          sendMsg: "Envio de Mensagens",
+          sendMedia: "Envio de Mídia",
+          api: "Uso da API",
+          apidocs: "Documentação",
+          apititle: "API",
+          apikey: "API Key",
+          token: "Token"
         },
         appBar: {
           user: {

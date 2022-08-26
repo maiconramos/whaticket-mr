@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Select from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 import { toast } from "react-toastify";
 
 import Tooltip from "@mui/material/Tooltip";
@@ -230,18 +229,6 @@ const Settings = () => {
 							{i18n.t("settings.settings.CheckMsgIsGroup.options.disabled")}
 						</option>
 					</Select>
-				</Paper>
-
-				<Paper className={classes.paper}>
-					<TextField
-						id="api-token-setting"
-						InputProps={{readOnly: true,}}
-						label="Token Api"
-						margin="dense"
-						variant="outlined"
-						fullWidth
-						value={settings && settings.length > 0 && getSettingValue("userApiToken")}
-					/>
 				</Paper>
 
 			</Container>

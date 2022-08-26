@@ -1,0 +1,106 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentação da API do Multiatendimento",
+        "description": "Documentação da API para envio de mensagens e mídia.",
+        "contact": {
+            "email": "contato@maiconramos.com.br"
+        },
+        "version": "1.0.0"
+    }, 
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Endpoint da API"
+        }
+    ],
+    "paths": {
+        "/api/messages/send": {
+            "post": {
+                "summary": "Envio de Mensagens",
+                "description": "Envio de Mensagens",
+                "tags": [
+                    "SEND"
+                ],
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#components/schemas/SEND"
+                            },
+                            "examples": {
+                                "SEND": {
+                                    "value": {
+                                        "number": "5522999999999",
+                                        "body": "Mensagem de Teste da API"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#components/schemas/SEND"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acesso não autorizado! Lembre-se de adicionar o token"
+                    },
+                    "500": {
+                        "description": "Erro interno!"
+                    }
+                }
+            }
+        }
+        
+    },
+    "components": {
+        "schemas": {
+            "SEND": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "number"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                }
+            },
+            "IMAGE": {
+                "type": "object",
+                "properties": {
+                    "number": {
+                        "type": "number"
+                    },
+                    "medias": {
+                        "type": "string"
+                    },
+                    "body": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}

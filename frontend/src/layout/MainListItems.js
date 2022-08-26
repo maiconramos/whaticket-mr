@@ -15,7 +15,9 @@ import PeopleAltOutlinedIcon from "@mui/icons-material/PeopleAltOutlined";
 import ContactPhoneOutlinedIcon from "@mui/icons-material/ContactPhoneOutlined";
 import AccountTreeOutlinedIcon from "@mui/icons-material/AccountTreeOutlined";
 import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlined";
-//import SendIcon from '@mui/icons-material/Send';
+import CodeIcon from '@mui/icons-material/Code';
+import MenuBookIcon from '@mui/icons-material/MenuBook';
+import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 
 import { i18n } from "../translate/i18n";
 import { WhatsAppsContext } from "../context/WhatsApp/WhatsAppsContext";
@@ -153,6 +155,31 @@ const MainListItems = (props) => {
               to="/settings"
               primary={i18n.t("mainDrawer.listItems.settings")}
               icon={<SettingsOutlinedIcon />}
+            />
+            <Divider />
+            <ListSubheader className={classes.subHeaderSidebar} inset>
+              {i18n.t("mainDrawer.listItems.apititle")}
+            </ListSubheader>
+            <ListItemLink
+              to="/api"
+              primary={i18n.t("mainDrawer.listItems.api")}
+              icon={
+                <CodeIcon />
+              }
+            />
+            <ListItemLink
+              to="/apidocs"
+              primary={i18n.t("mainDrawer.listItems.apidocs")}
+              icon={
+                <MenuBookIcon />
+              }
+            />
+            <ListItemLink
+              to="/apikey"
+              primary={i18n.t("mainDrawer.listItems.apikey")}
+              icon={
+                <VpnKeyRoundedIcon />
+              }
             />
           </>
         )}
