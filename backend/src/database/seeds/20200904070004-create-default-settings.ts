@@ -18,6 +18,12 @@ module.exports = {
           updatedAt: new Date()
         },
         {
+          key: "CheckMsgIsGroup",
+          value: "enabled",
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
           key: "timeCreateNewTicket",
           value: "43200",
           createdAt: new Date(),

@@ -399,6 +399,13 @@ const messages = {
           disabled: "Desativado",
         },
       },  
+      CheckMsgIsGroup: {
+        name: "Ignorar Mensagens de Grupos",
+        options: {
+            enabled: "Ativado",
+            disabled: "Desativado",
+        },
+      },
         },
       },
       messagesList: {

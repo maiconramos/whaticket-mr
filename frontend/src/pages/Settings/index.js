@@ -208,6 +208,31 @@ const Settings = () => {
 				</Paper>
 
 				<Paper className={classes.paper}>
+					<Typography variant="body1">
+						{i18n.t("settings.settings.CheckMsgIsGroup.name")}
+					</Typography>
+					<Select
+						margin="dense"
+						variant="outlined"
+						native
+						id="CheckMsgIsGroup-setting"
+						name="CheckMsgIsGroup"
+						value={
+							settings && settings.length > 0 && getSettingValue("CheckMsgIsGroup")
+						}
+						className={classes.settingOption}
+						onChange={handleChangeSetting}
+					>
+						<option value="enabled">
+							{i18n.t("settings.settings.CheckMsgIsGroup.options.enabled")}
+						</option>
+						<option value="disabled">
+							{i18n.t("settings.settings.CheckMsgIsGroup.options.disabled")}
+						</option>
+					</Select>
+				</Paper>
+
+				<Paper className={classes.paper}>
 					<TextField
 						id="api-token-setting"
 						InputProps={{readOnly: true,}}
