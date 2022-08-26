@@ -9,6 +9,8 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { toast } from "react-toastify";
 
+import Tooltip from "@mui/material/Tooltip";
+
 import api from "../../services/api";
 import { i18n } from "../../translate/i18n.js";
 import toastError from "../../errors/toastError";
@@ -123,6 +125,60 @@ const Settings = () => {
 					</Select>
 
 				</Paper>
+				<Typography variant="body2" gutterBottom></Typography>
+				<Tooltip title={i18n.t("settings.settings.timeCreateNewTicket.note")}>
+					<Paper className={classes.paper} elevation={3}>
+						<Typography variant="body1">
+							{i18n.t("settings.settings.timeCreateNewTicket.name")}
+						</Typography>
+						<Select
+							margin="dense"
+							variant="outlined"
+							native
+							id="timeCreateNewTicket-setting"
+							name="timeCreateNewTicket"
+							value={
+								settings && settings.length > 0 && getSettingValue("timeCreateNewTicket")
+							}
+							className={classes.settingOption}
+							onChange={handleChangeSetting}
+						>
+							<option value="10">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.10")}
+							</option>
+							<option value="30">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.30")}
+							</option>
+							<option value="60">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.60")}
+							</option>
+							<option value="300">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.300")}
+							</option>
+							<option value="1800">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.1800")}
+							</option>
+							<option value="3600">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.3600")}
+							</option>
+							<option value="7200">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.7200")}
+							</option>
+							<option value="21600">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.21600")}
+							</option>
+							<option value="43200">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.43200")}
+							</option>
+							<option value="86400">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.86400")}
+							</option>
+							<option value="172800">
+								{i18n.t("settings.settings.timeCreateNewTicket.options.172800")}
+							</option>
+						</Select>
+					</Paper>
+				</Tooltip>
 
 				<Paper className={classes.paper}>
 					<TextField

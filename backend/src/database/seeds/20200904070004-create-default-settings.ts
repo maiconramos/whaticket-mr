@@ -10,6 +10,12 @@ module.exports = {
           value: "enabled",
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          key: "timeCreateNewTicket",
+          value: "43200",
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
