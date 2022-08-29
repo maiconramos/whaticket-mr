@@ -142,6 +142,11 @@ const MainListItems = (props) => {
                 }
               />
             <ListItemLink
+                to="/Disparador"
+                icon={<PeopleAltOutlinedIcon />}
+                primary="Disparador"
+              />
+            <ListItemLink
               to="/users"
               primary={i18n.t("mainDrawer.listItems.users")}
               icon={<PeopleAltOutlinedIcon />}

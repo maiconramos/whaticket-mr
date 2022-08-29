@@ -11,12 +11,13 @@ import Paper from "@mui/material/Paper";
 import Button from '@mui/material/Button';
 import http from 'http';
 import { FormControl, Select, MenuItem } from "@mui/material";
-//const http = require('http');
 
 const init = { 
-  host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
+  host: "localhost:8080",
   path: '/Disparador',
   method: 'POST',
+  protocol: "http:",
   headers: {
     'content-type': 'application/json; charset=utf-8'
   }
@@ -37,6 +38,7 @@ const callback = function(response) {
 async function ZDGSender(number, message, iD, token) {
 	const req = http.request(init, callback);
 	console.log(req);
+	console.log(req._opts);
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
 	console.log(body);
 	await req.write(body);
@@ -44,8 +46,7 @@ async function ZDGSender(number, message, iD, token) {
 }
 
 const init2 = {
-	//host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-	host: 'http://localhost:80770',
+	host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
 	path: '/whatsappzdg'
   };
   
