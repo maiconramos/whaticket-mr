@@ -4,60 +4,32 @@ import { makeStyles } from "@mui/styles";
 import Container from "@mui/material/Container";
 import api from "../../services/api";
 import { WhatsAppsContext } from "../../context/WhatsApp/WhatsAppsContext";
-//import Connections from "../Connections/";
 import toastError from "../../errors/toastError";
 import TextField from '@mui/material/TextField';
 import Paper from "@mui/material/Paper";
 import Button from '@mui/material/Button';
-import http from 'http';
-import { FormControl, Select, MenuItem } from "@mui/material";
+import axios from 'axios';
+import { FormControl, Select, MenuItem, InputLabel } from "@mui/material";
+import Slider from '@mui/material/Slider';
 
 const init = { 
-  //host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-  host: "localhost:8080",
-  path: '/Disparador',
+  host: process.env.REACT_APP_BACKEND_URL+"/Disparador",
   method: 'POST',
-  protocol: "http:",
   headers: {
     'content-type': 'application/json; charset=utf-8'
   }
 };
-console.log(init);
- 
-const callback = function(response) {
-  let result = Buffer.alloc(0);
-  response.on('data', function(chunk) {
-    result = Buffer.concat([result, chunk]);
-  });
-  
-  response.on('end', function() {
-    console.log(result.toString());
-  });
-};
 
-async function ZDGSender(number, message, iD, token) {
-	const req = http.request(init, callback);
-	console.log(req);
-	console.log(req._opts);
+async function SendMessageText(number, message, iD, token) {
+	const url = init.host;
+	const headers = init.headers;
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
-	console.log(body);
-	await req.write(body);
-	req.end();
-}
-
-const init2 = {
-	host: process.env.REACT_APP_BACKEND_URL.split("//")[1],
-	path: '/whatsappzdg'
-  };
-  
-async function GETSender() {
-	http.get(init2, function(res) {
-		res.on("data", function(wppID) {
-		  alert("ID instância ativa: " + wppID) ;
-		});
-	  }).on('error', function(e) {
-		alert("Erro: " + e.message);
-	  });
+	await axios.post(url, body, {
+			headers: headers
+		}
+	  ).then((response) => {
+		console.log(response)
+	  })
 }
 
 const useStyles = makeStyles(theme => ({
@@ -76,6 +48,10 @@ const useStyles = makeStyles(theme => ({
 		textAlign: "center",
 		verticalAlign: "middle",
 		marginBottom: 12,
+	},
+
+	slider: {
+		marginTop: 12,
 	},
 
 	button: {
@@ -102,6 +78,8 @@ const Disparador = () => {
 	const [inputs, setInputs] = useState({});
 	const [settings, setSettings] = useState([]);
 	const { whatsApps, loading } = useContext(WhatsAppsContext);
+	const [whatsappId, setWhatsappId] = React.useState('');
+	const [valueSlider, setValueSlider] = React.useState([5, 120]);
 
 	useEffect(() => {
 		const fetchSession = async () => {
@@ -126,11 +104,19 @@ const Disparador = () => {
 		setInputs(values => ({...values, [name]: value}))
 	  }
 
-	const [whatsappId, setWhatsappId] = React.useState('');
-
-	const handleChangeSelect = (event: SelectChangeEvent) => {
+	const handleChangeSelect = (event) => {
 		setWhatsappId(event.target.value);
 	};
+
+	
+	function valuetextSlider(value) {
+		return `${valueSlider} segundos`;
+	  }
+	  
+
+  const handleChangeSlider = (event, newValueSlider) => {
+    setValueSlider(newValueSlider);
+  };
 	
 	const handleSubmit = async (event) => {
 		event.preventDefault();
@@ -142,63 +128,29 @@ const Disparador = () => {
 			return Math.floor(Math.random() * (max - min + 1) + min)
 		}
 		for (const user of usersTextArea){
-			const rndInt = randomIntFromInterval(inputs.min, inputs.max)
+			const rndInt = randomIntFromInterval(valueSlider[0], valueSlider[1])
+			console.log(valueSlider[0], valueSlider[1]);
 			const numberDDI = user.substring(0, 2);
 			const numberDDD = user.substring(2, 4);
 			await timer(rndInt * 1000)
 			if (numberDDI !== "55") {
-				ZDGSender(user, inputs.message, inputs.id, token);
+				SendMessageText(user, inputs.message, whatsappId, token);
 				await timer(rndInt * 1000)
 				alert('Mensagem enviada para o número DDI: ' + user);
 			}
 			else if (numberDDI === "55" && parseInt(numberDDD) <= 30) {
 				const numberUser = user.substr(-8,8);
 				await timer(rndInt * 1000)
-				ZDGSender(numberDDI.toString() + numberDDD.toString() + "9" + numberUser.toString(), inputs.message, inputs.id, token);
+				SendMessageText(numberDDI.toString() + numberDDD.toString() + "9" + numberUser.toString(), inputs.message, whatsappId, token);
 				alert('Mensagem enviada para o número: ' + numberDDI.toString() + numberDDD.toString() + "9" + numberUser.toString());
 			}
 			else if (numberDDI === "55" && parseInt(numberDDD) > 30) {
 				const numberUser = user.substr(-8,8);
 				await timer(rndInt * 1000)
-				ZDGSender(numberDDI.toString() + numberDDD.toString() + numberUser.toString(), inputs.message, inputs.id, token);
+				SendMessageText(numberDDI.toString() + numberDDD.toString() + numberUser.toString(), inputs.message, whatsappId, token);
 				alert('Mensagem enviada para o número: ' + numberDDI.toString() + numberDDD.toString() + numberUser.toString());
 			}
-			// ZDGSender(user, inputs.message, inputs.id, token);
-			// alert(rndInt + ' Mensagem enviada para o número DDI: ' + user);
 		}
-
-		// usersTextArea.forEach(async (user) => {
-		// 	const numberDDI = user.substring(0, 2);
-		// 	const numberDDD = user.substring(2, 4);
-		// 	const rndInt = randomIntFromInterval(1, 6)
-		// 	console.log(rndInt)		
-			
-		// 	setTimeout(function() {
-		// 		if (numberDDI !== "55") {
-		// 		setTimeout(function() {
-		// 		ZDGSender(user, inputs.message, inputs.id, token);
-		// 		await timer(rndInt * 1000)
-		// 		alert(rndInt + 'Mensagem enviada para o número DDI: ' + user);
-		// 		},5000 + Math.floor(Math.random() * 3000))
-		// 		}
-		// 		else if (numberDDI === "55" && parseInt(numberDDD) <= 30) {
-		// 		setTimeout(function() {
-		// 		const numberUser = user.substr(-8,8);
-		// 		await timer(rndInt * 1000)
-		// 		ZDGSender(numberDDI.toString() + numberDDD.toString() + "9" + numberUser.toString(), inputs.message, inputs.id, token);
-		// 		alert(rndInt + 'Mensagem enviada para o número com 9: ' + numberDDI.toString() + numberDDD.toString() + "9" + numberUser.toString());
-		// 		},5000 + Math.floor(Math.random() * 3000))  
-		// 		}
-		// 		else if (numberDDI === "55" && parseInt(numberDDD) > 30) {
-		// 		setTimeout(function() {
-		// 		const numberUser = user.substr(-8,8);
-		// 		await timer(rndInt * 1000)
-		// 		ZDGSender(numberDDI.toString() + numberDDD.toString() + numberUser.toString(), inputs.message, inputs.id, token);
-		// 		alert(rndInt + 'Mensagem enviada para o número sem 9: ' + numberDDI.toString() + numberDDD.toString() + numberUser.toString());
-		// 		},5000 + Math.floor(Math.random() * 3000)) 
-		// 		}
-		// 	},5000 + Math.floor(Math.random() * 10000))            
-		// });
 	}
 	
 	useEffect(() => {
@@ -250,29 +202,17 @@ const Disparador = () => {
 				/>
 				</Paper>
 				<Paper className={classes.paper}>
-				<TextField 
-					id="outlined-basic" 
-					label="ID de Disparo" 
-					variant="outlined" 
-					name="id" 
-					value={inputs.id || ""} 
-					onChange={handleChange}
-					required
-					fullWidth
-					margin="dense"
-				/>
-				</Paper>
+
 				<FormControl fullWidth>
-					{/* 
-					<InputLabel id="demo-simple-select-label">Qual a conexão? {Connections}</InputLabel>*/}
+					<InputLabel id="whatsappId">Qual a conexão?</InputLabel>
 					<Select
-						labelId="demo-simple-select-label"
-						id="demo-simple-select"
-						value={whatsappId}
-						label="Conexão"
+						labelId="whatsappId"
+						id="whatsappId"
+						name="whatsappId"
+						value={whatsappId || ""}
+						label="Qual a conexão?"
 						onChange={handleChangeSelect}
 					>
-
 						 {loading ? (
 							<MenuItem  key={whatsApps.id}  value="">"Carregando"</MenuItem> 
 						) : ( whatsApps?.length > 0 && whatsApps.map(whatsApp => (
@@ -280,34 +220,22 @@ const Disparador = () => {
 						)))} 
 					</Select>
 					</FormControl>
-				<Paper className={classes.paper}>
-				<TextField style={{marginRight: 5}}
-					id="outlined-basic" 
-					label="Intervalo minímo (Segundos)" 
-					variant="outlined" 
-					name="min" 
-					value={inputs.min || ""} 
-					onChange={handleChange}
-					required
-					fullWidth
-					margin="dense"
-				/>
-				<TextField style={{marginLeft: 5}}
-					id="outlined-basic" 
-					label="Intervalo máximo (Segundos)" 
-					variant="outlined" 
-					name="max" 
-					value={inputs.max || ""} 
-					onChange={handleChange}
-					required
-					fullWidth
-					margin="dense"
+				</Paper>
+				<Paper className={classes.paper} sx={{ flexWrap: 'wrap' }}>
+				<InputLabel id="input-slider">Intervalo de mínimo e máximo de segundos</InputLabel>
+				<Slider
+					getAriaLabel={() => 'Intervalo de tempo mínimo e máximo'}
+					value={valueSlider}
+					id="input-slider"
+					onChange={handleChangeSlider}
+					valueLabelDisplay="auto"
+					aria-labelledby="input-slider"
+					getAriaValueText={valuetextSlider}
+					valueLabelDisplay="on"
+					size="100%"
 				/>
 				</Paper>
-				<Button variant="contained" color="primary" className={classes.button} onClick={GETSender}>
-				Mostrar ID de Disparo
-				</Button>
-				<Button variant="contained" color="secondary" className={classes.button} type="submit">
+				<Button variant="contained" color="primary" className={classes.button} type="submit">
 				DISPARAR
 				</Button>
 			</form>
