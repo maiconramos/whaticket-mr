@@ -15,8 +15,6 @@ const SendWhatsAppMessage2 = async (
   ticketwhatsappId: any
 ): Promise<WbotMessage> => {
   const wbot2 = await GetTicketWbot2(ticketwhatsappId);
-  console.log("aqui");
-  console.log(wbot2);
   function delay(t: number, v: number) {
     return new Promise(function (resolve) {
       setTimeout(resolve.bind(null, v), t);

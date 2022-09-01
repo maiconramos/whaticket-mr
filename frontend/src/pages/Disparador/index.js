@@ -19,7 +19,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
 
 const init = { 
-  host: process.env.REACT_APP_BACKEND_URL+"/Disparador",
+  host: process.env.REACT_APP_BACKEND_URL,
   method: 'POST',
   headers: {
     'content-type': 'application/json; charset=utf-8'
@@ -27,10 +27,19 @@ const init = {
 };
 
 async function SendMessageText(number, message, iD, token) {
-	const url = init.host;
 	const headers = init.headers;
 	const body = '{"number":"'+ number + '@c.us","message":"' + message.replace(/\n/g, "\\n") + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
-	await axios.post(url, body, {
+	await axios.post(init.host+"/send-message", body, {
+			headers: headers
+		}
+	  ).then((response) => {
+		console.log(response)
+	  })
+}
+async function sendMedia(number, url, title, iD, token) {
+	const headers = init.headers;
+	const body = '{"number":"'+ number + '@c.us","url":"' + url + '","title":"' + title + '","token":"' + token + '","ticketwhatsappId":' + iD + '}';
+	await axios.post(init.host+"/send-media", body, {
 			headers: headers
 		}
 	  ).then((response) => {
@@ -142,10 +151,21 @@ const Disparador = () => {
 		}
 		for (const user of usersTextArea){
 			const rndInt = randomIntFromInterval(valueSlider[0], valueSlider[1])
-			console.log(valueSlider[0], valueSlider[1]);
 			const numberDDI = user.substring(0, 2);
 			const numberDDD = user.substring(2, 4);
-			await timer(rndInt * 1000)
+			await timer(rndInt * 1000);
+
+			if (valueRadio === 'texto') {
+				SendMessageText(user, inputs.message, whatsappId, token);
+				await timer(rndInt * 1000);
+				alert('Mensagem enviada para o número DDI: ' + user);
+			} else if (valueRadio === 'midia') {
+				sendMedia(user, inputs.url, inputs.title, whatsappId, token);
+				await timer(rndInt * 1000);
+				alert('Arquivo enviada para o número DDI: ' + user);
+			}
+			
+			/*
 			if (numberDDI !== "55") {
 				SendMessageText(user, inputs.message, whatsappId, token);
 				await timer(rndInt * 1000)
@@ -162,7 +182,7 @@ const Disparador = () => {
 				await timer(rndInt * 1000)
 				SendMessageText(numberDDI.toString() + numberDDD.toString() + numberUser.toString(), inputs.message, whatsappId, token);
 				alert('Mensagem enviada para o número: ' + numberDDI.toString() + numberDDD.toString() + numberUser.toString());
-			}
+			}*/
 		}
 	}
 	
@@ -236,7 +256,7 @@ const Disparador = () => {
 				/>
 				</Paper>
 							
-				<Paper className={classes.paper} >
+				<Paper className={classes.paper} sx={{ flexWrap: 'wrap' }} >
 					{valueRadio === "texto" ? (	
 						<TextField 
 							id="outlined-basic" 
@@ -253,12 +273,13 @@ const Disparador = () => {
 						/>
 					) : false}
 					{valueRadio === "midia" ? (	
+						<>
 						 <TextField
 							id="outlined-textarea"
 							label="URL do arquivo" 
 							variant="outlined" 
-							name="message" 
-							value={inputs.message || ""} 
+							name="url" 
+							value={inputs.url || ""} 
 							onChange={handleChange}
 							required
 							fullWidth
@@ -266,6 +287,20 @@ const Disparador = () => {
 							margin="dense"
 							placeholder="Cole a URL da imagem, vídeo ou pdf"
 						/>
+						<TextField
+							id="outlined-textarea"
+							label="Qual a legenda do arquivo?" 
+							variant="outlined"
+							name="title"
+							value={inputs.title || ""}
+							onChange={handleChange}
+							required
+							fullWidth
+							multiline
+							margin="dense"
+							placeholder="Qual a legenda do arquivo?"
+						/>
+						</>
 					) : false}
 					{valueRadio === "audio" ? (	
 						 <TextField
@@ -284,10 +319,7 @@ const Disparador = () => {
 					) : false}
 					</Paper>
 				
-
-
 				<Paper className={classes.paper}>
-
 				<FormControl fullWidth>
 					<InputLabel id="whatsappId">Qual a conexão?</InputLabel>
 					<Select
