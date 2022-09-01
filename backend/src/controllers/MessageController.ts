@@ -4,6 +4,7 @@ import SetTicketMessagesAsRead from "../helpers/SetTicketMessagesAsRead";
 import { getIO } from "../libs/socket";
 import Message from "../models/Message";
 import SendWhatsAppMessage_2 from "../services/WbotServices/SendWhatsAppMessage2";
+import SendWhatsAppMediaApi from "../services/WbotServices/SendWhatsAppMediaApi";
 import ListMessagesService from "../services/MessageServices/ListMessagesService";
 import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import DeleteWhatsAppMessage from "../services/WbotServices/DeleteWhatsAppMessage";
@@ -58,7 +59,7 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
   return res.send();
 };
 
-export const store2 = async (
+export const MessageText = async (
   req: Request,
   res: Response
 ): Promise<Response> => {
@@ -72,6 +73,22 @@ export const store2 = async (
   }
 
   await SendWhatsAppMessage_2(number, message, ticketwhatsappId);
+  return res.send();
+};
+
+export const MessageMedia = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  console.log(req.body);
+  const { number, url, title, ticketwhatsappId, token } = req.body;
+  const APIToken = await getApiToken();
+
+  console.log(APIToken);
+  if (APIToken !== token) {
+    return res.status(500).json({ status: false, response: "API INVÁLIDA" });
+  }
+  await SendWhatsAppMediaApi(number, url, ticketwhatsappId, title);
   return res.send();
 };
 
