@@ -18,6 +18,7 @@ import QuestionAnswerOutlinedIcon from "@mui/icons-material/QuestionAnswerOutlin
 import CodeIcon from '@mui/icons-material/Code';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
+import SendIcon from '@mui/icons-material/Send';
 
 import { i18n } from "../translate/i18n";
 import { WhatsAppsContext } from "../context/WhatsApp/WhatsAppsContext";
@@ -143,7 +144,7 @@ const MainListItems = (props) => {
               />
             <ListItemLink
                 to="/Disparador"
-                icon={<PeopleAltOutlinedIcon />}
+                icon={<SendIcon />}
                 primary="Disparador"
               />
             <ListItemLink
