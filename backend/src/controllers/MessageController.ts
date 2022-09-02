@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import SetTicketMessagesAsRead from "../helpers/SetTicketMessagesAsRead";
 import { getIO } from "../libs/socket";
 import Message from "../models/Message";
+import SendWhatsAppAudioApi from "../services/WbotServices/SendWhatsAppAudioApi";
 import SendWhatsAppMessage_2 from "../services/WbotServices/SendWhatsAppMessage2";
 import SendWhatsAppMediaApi from "../services/WbotServices/SendWhatsAppMediaApi";
 import ListMessagesService from "../services/MessageServices/ListMessagesService";
@@ -89,6 +90,20 @@ export const MessageMedia = async (
     return res.status(500).json({ status: false, response: "API INVÁLIDA" });
   }
   await SendWhatsAppMediaApi(number, url, ticketwhatsappId, title);
+  return res.send();
+};
+
+export const MessageAudio = async (
+  req: Request,
+  res: Response
+): Promise<Response> => {
+  console.log(req.body);
+  const { number, url, ticketwhatsappId, token } = req.body;
+  const APIToken = await getApiToken();
+  if (APIToken !== token) {
+    return res.status(500).json({ status: false, response: "API INVÁLIDA" });
+  }
+  await SendWhatsAppAudioApi(number, url, ticketwhatsappId);
   return res.send();
 };
 

@@ -12,6 +12,7 @@ const upload = multer(uploadConfig);
 messageRoutes.get("/messages/:ticketId", isAuth, MessageController.index);
 messageRoutes.post("/send-message", MessageController.MessageText);
 messageRoutes.post("/send-media", MessageController.MessageMedia);
+messageRoutes.post("/send-audio", MessageController.MessageAudio);
 
 messageRoutes.post(
   "/messages/:ticketId",

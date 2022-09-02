@@ -166,8 +166,6 @@ const Disparador = () => {
 		}
 		for (const user of usersTextArea){
 			const rndInt = randomIntFromInterval(valueSlider[0], valueSlider[1])
-			const numberDDI = user.substring(0, 2);
-			const numberDDD = user.substring(2, 4);
 			const log = [];
 			await timer(rndInt * 1000);
 
@@ -178,11 +176,11 @@ const Disparador = () => {
 			} else if (valueRadio === 'midia') {
 				sendMedia(user, inputs.url, inputs.title, whatsappId, token);
 				await timer(rndInt * 1000);
-				alert('Arquivo enviada para o número DDI: ' + user);
+				setlogMessageSent(log => [...log, `Arquivo enviada para o número: ${user}`]);
 			} else if (valueRadio === 'audio') {
 				sendAudio(user, inputs.urlAudio, whatsappId, token);
 				await timer(rndInt * 1000);
-				alert('Áudio enviado para o número DDI: ' + user);
+				setlogMessageSent(log => [...log, `Áudio enviado para o número: ${user}`]);
 			}
 			
 			/*
@@ -259,7 +257,7 @@ const Disparador = () => {
 					control={<Radio />}
 					onChange={handleChangeRadio}
 					checked={valueRadio === "audio"}
-					label="Audio"
+					label="Áudio"
 					labelPlacement="bottom"
 					/>
 					</RadioGroup>
@@ -307,7 +305,7 @@ const Disparador = () => {
 								fullWidth
 								multiline
 								margin="dense"
-								placeholder="Cole a URL da imagem, vídeo ou pdf"
+								placeholder="Cole a URL da imagem, vídeo, mp3 ou pdf"
 								sx={{ mb: 2 }}	
 							/>
 							<TextField
@@ -339,7 +337,7 @@ const Disparador = () => {
 								fullWidth
 								multiline
 								margin="dense"
-								placeholder="Cole a URL do arquivo de audio, no formato .OGG"
+								placeholder="Cole a URL do arquivo de audio, no formato .MP3"
 								sx={{ mb: 2 }}	
 							/>
 							</>
@@ -382,7 +380,7 @@ const Disparador = () => {
 				<Alert severity="warning" className={classes.alert} >
 					<AlertTitle>Muito Cuidado</AlertTitle>
 					Por segurança envie suas mensagens em blocos de 30 contatos.<br />
-					Esta página deve ficar aberta enquanto os disparos são realizados
+					Esta página deve ficar aberta enquanto os disparos são realizados<br />
 					<strong>Nunca use o chip principal para fazer envio, use um descartável</strong>
 				</Alert>
 				<Alert severity="info">
