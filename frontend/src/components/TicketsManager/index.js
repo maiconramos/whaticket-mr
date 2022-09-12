@@ -121,18 +121,10 @@ const TicketsManager = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
-    if (tab === "search") {
-      searchInputRef.current.focus();
-    }
-  }, [tab]);
-
-  let searchTimeout;
-
   const handleSearch = (e) => {
     const searchedTerm = e.target.value.toLowerCase();
 
-    clearTimeout(searchTimeout);
+
     
     setSearchParam(searchedTerm);
 
@@ -142,19 +134,12 @@ const TicketsManager = () => {
       setTab("search");
     }
 
-    searchTimeout = setTimeout(() => {
-      setSearchParam(searchedTerm);
-    }, 500);
   };
 
   const handleChangeTab = (e, newValue) => {
     setTab(newValue);
   };
-  /*
-  const handleChangeTabOpen = (e, newValue) => {
-    setTabOpen(newValue);
-  };
-*/
+
   const applyPanelStyle = (status) => {
     if (tabOpen !== status) {
       return { width: 0, height: 0 };
@@ -221,7 +206,7 @@ const TicketsManager = () => {
         </Tabs>
       </Paper>
       <Paper square elevation={0} className={classes.ticketOptionsBox}>
-        {tab === "search" ? (
+        {/*tab === "search" ? (
           <div className={classes.serachInputWrapper}>
             <SearchIcon className={classes.searchIcon} />
             <InputBase
@@ -232,7 +217,7 @@ const TicketsManager = () => {
               onChange={handleSearch}
             />
           </div>
-        ) : (
+        ) : ( */}
           <>
             <Button
               variant="outlined"
@@ -263,7 +248,6 @@ const TicketsManager = () => {
               )}
             />
           </>
-        )}
         <TicketsQueueSelect
           style={{ marginLeft: 6 }}
           selectedQueueIds={selectedQueueIds}
