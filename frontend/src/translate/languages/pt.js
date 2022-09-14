@@ -272,6 +272,10 @@ const messages = {
         buttons: {
           accept: "Aceitar",
         },
+        acceptModal: {
+          title: "Aceitar Chat",
+          queue: "Selecionar setor"
+        },
       },
       newTicketModal: {
         title: "Criar Ticket",

@@ -19,6 +19,29 @@ import ButtonWithSpinner from "../ButtonWithSpinner";
 import ContactModal from "../ContactModal";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
+import { makeStyles } from '@mui/styles';
+
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select
+} from "@mui/material";
+
+
+
+const useStyles = makeStyles((theme) => ({
+	autoComplete: {
+		width: 300
+	},
+	maxWidth: {
+		width: "100%",
+	},
+	buttonColorError: {
+		color: theme.palette.error.main,
+		borderColor: theme.palette.error.main,
+	},
+}));
 
 const filter = createFilterOptions({
 	trim: true,
@@ -34,6 +57,8 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 	const [newContact, setNewContact] = useState({});
 	const [contactModalOpen, setContactModalOpen] = useState(false);
 	const { user } = useContext(AuthContext);
+	const [selectedQueue, setSelectedQueue] = useState('');
+	const classes = useStyles();
 
 	useEffect(() => {
 		if (!modalOpen || searchParam.length < 3) {
@@ -74,6 +99,7 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				contactId: contactId,
 				userId: user.id,
 				status: "open",
+				queueId: selectedQueue
 			});
 			history.push(`/tickets/${ticket.id}`);
 		} catch (err) {
@@ -108,15 +134,18 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				name: `${params.inputValue}`,
 			});
 		}
-
 		return filtered;
 	};
 
-	const renderOption = option => {
+	const renderOption = (props, option) => {
 		if (option.number) {
-			return `${option.name} - ${option.number}`;
+			return ( 
+				<span {...props}> {option.name} - {option.number} </span> 
+			);
 		} else {
-			return `${i18n.t("newTicketModal.add")} ${option.name}`;
+			return ( 
+				<span {...props}> {i18n.t("newTicketModal.add")} - {option.name} </span> 
+			)
 		}
 	};
 
@@ -140,48 +169,68 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				<DialogTitle id="form-dialog-title">
 					{i18n.t("newTicketModal.title")}
 				</DialogTitle>
+				<FormControl>
 				<DialogContent dividers>
 					<Autocomplete
-						options={options}
-						loading={loading}
-						style={{ width: 300 }}
-						clearOnBlur
-						autoHighlight
-						freeSolo
-						clearOnEscape
-						getOptionLabel={renderOptionLabel}
-						renderOption={renderOption}
-						filterOptions={createAddContactOption}
-						onChange={(e, newValue) => handleSelectOption(e, newValue)}
-						renderInput={params => (
-							<TextField
-								{...params}
-								label={i18n.t("newTicketModal.fieldLabel")}
-								variant="outlined"
-								autoFocus
-								onChange={e => setSearchParam(e.target.value)}
-								onKeyPress={e => {
-									if (loading || !selectedContact) return;
-									else if (e.key === "Enter") {
-										handleSaveTicket(selectedContact.id);
-									}
-								}}
-								InputProps={{
-									...params.InputProps,
-									endAdornment: (
-										<React.Fragment>
-											{loading ? (
-												<CircularProgress color="inherit" size={20} />
-											) : null}
-											{params.InputProps.endAdornment}
-										</React.Fragment>
-									),
-								}}
-							/>
-						)}
-					/>
-				</DialogContent>
-				<DialogActions>
+							options={options}
+							loading={loading}
+							style={{ width: 300 }}
+							clearOnBlur
+							autoHighlight
+							freeSolo
+							clearOnEscape
+							getOptionLabel={renderOptionLabel}
+							renderOption={renderOption}
+							filterOptions={createAddContactOption}
+							onChange={(e, newValue) => handleSelectOption(e, newValue)}
+							renderInput={params => (
+								<TextField
+									{...params}
+									label={i18n.t("newTicketModal.fieldLabel")}
+									variant="outlined"
+									autoFocus
+									required
+									onChange={e => setSearchParam(e.target.value)}
+									onKeyPress={e => {
+										if (loading || !selectedContact) return;
+										else if (e.key === "Enter") {
+											handleSaveTicket(selectedContact.id);
+										}
+									}}
+									InputProps={{
+										...params.InputProps,
+										endAdornment: (
+											<React.Fragment>
+												{loading ? (
+													<CircularProgress color="inherit" size={20} />
+												) : null}
+												{params.InputProps.endAdornment}
+											</React.Fragment>
+										),
+									}}
+								/>
+							)}
+						/>
+				<DialogContent />
+				<FormControl variant="outlined" className={classes.maxWidth}>
+							<InputLabel>{i18n.t("ticketsList.acceptModal.queue")}</InputLabel>
+							<Select
+								autoHighlight
+								required
+								value={selectedQueue}
+								className={classes.autoComplete}
+								onChange={(e) => setSelectedQueue(e.target.value)}
+								label={i18n.t("ticketsList.acceptModal.queue")}
+							>
+								<MenuItem value={''}>&nbsp;</MenuItem>
+								{user.queues.map((queue) => (
+									<MenuItem key={queue.id} value={queue.id}>{queue.name}</MenuItem>
+								))}
+							</Select>
+						</FormControl>
+					</DialogContent>
+			</FormControl>			
+			<DialogActions>
 					<Button
 						onClick={handleClose}
 						color="secondary"
@@ -193,7 +242,7 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 					<ButtonWithSpinner
 						variant="contained"
 						type="button"
-						disabled={!selectedContact}
+						disabled={!selectedContact || !selectedQueue}
 						onClick={() => handleSaveTicket(selectedContact.id)}
 						color="primary"
 						loading={loading}

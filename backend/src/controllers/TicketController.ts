@@ -8,6 +8,7 @@ import ShowTicketService from "../services/TicketServices/ShowTicketService";
 import UpdateTicketService from "../services/TicketServices/UpdateTicketService";
 import SendWhatsAppMessage from "../services/WbotServices/SendWhatsAppMessage";
 import ShowWhatsAppService from "../services/WhatsappService/ShowWhatsAppService";
+import ShowQueueService from "../services/QueueService/ShowQueueService";
 import formatBody from "../helpers/Mustache";
 
 type IndexQuery = {
@@ -25,6 +26,7 @@ interface TicketData {
   status: string;
   queueId: number;
   userId: number;
+  transf: boolean;
 }
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
@@ -61,9 +63,14 @@ export const index = async (req: Request, res: Response): Promise<Response> => {
 };
 
 export const store = async (req: Request, res: Response): Promise<Response> => {
-  const { contactId, status, userId }: TicketData = req.body;
+  const { contactId, status, userId, queueId }: TicketData = req.body;
 
-  const ticket = await CreateTicketService({ contactId, status, userId });
+  const ticket = await CreateTicketService({
+    contactId,
+    status,
+    userId,
+    queueId
+  });
 
   const io = getIO();
   io.to(ticket.status).emit("ticket", {
@@ -94,6 +101,14 @@ export const update = async (
     ticketId
   });
 
+  if (ticketData.transf) {
+    const { greetingMessage } = await ShowQueueService(ticketData.queueId);
+    if (greetingMessage) {
+      const msgtxt = formatBody(`\u200e${greetingMessage}`);
+      await SendWhatsAppMessage({ body: msgtxt, ticket });
+    }
+  }
+
   if (ticket.status === "closed") {
     const whatsapp = await ShowWhatsAppService(ticket.whatsappId);
 
@@ -101,7 +116,7 @@ export const update = async (
 
     if (farewellMessage) {
       await SendWhatsAppMessage({
-        body: formatBody(farewellMessage, ticket.contact),
+        body: formatBody(`\u200e${farewellMessage}`, ticket),
         ticket
       });
     }
