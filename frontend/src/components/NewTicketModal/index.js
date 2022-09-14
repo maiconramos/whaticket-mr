@@ -32,7 +32,11 @@ import {
 
 const useStyles = makeStyles((theme) => ({
 	autoComplete: {
-		width: 300
+		width: 300,
+		marginBottom: 8
+	},
+	queue: {
+		width: 300,
 	},
 	maxWidth: {
 		width: "100%",
@@ -99,7 +103,7 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				contactId: contactId,
 				userId: user.id,
 				status: "open",
-				queueId: selectedQueue
+				queueId: selectedQueue == '' ? null : selectedQueue
 			});
 			history.push(`/tickets/${ticket.id}`);
 		} catch (err) {
@@ -172,6 +176,7 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				<FormControl>
 				<DialogContent dividers>
 					<Autocomplete
+							className={classes.autoComplete}
 							options={options}
 							loading={loading}
 							style={{ width: 300 }}
@@ -211,14 +216,16 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 								/>
 							)}
 						/>
-				<DialogContent />
-				<FormControl variant="outlined" className={classes.maxWidth}>
+				
+									{user.queues.length > 0  && (										
+					<FormControl variant="outlined" className={classes.maxWidth}>
+						{<script>console.table(queues)</script>}
 							<InputLabel>{i18n.t("ticketsList.acceptModal.queue")}</InputLabel>
 							<Select
 								autoHighlight
 								required
 								value={selectedQueue}
-								className={classes.autoComplete}
+								className={classes.queue}
 								onChange={(e) => setSelectedQueue(e.target.value)}
 								label={i18n.t("ticketsList.acceptModal.queue")}
 							>
@@ -227,8 +234,9 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 									<MenuItem key={queue.id} value={queue.id}>{queue.name}</MenuItem>
 								))}
 							</Select>
-						</FormControl>
-					</DialogContent>
+					</FormControl>
+					)}
+				</DialogContent>
 			</FormControl>			
 			<DialogActions>
 					<Button
@@ -239,16 +247,29 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 					>
 						{i18n.t("newTicketModal.buttons.cancel")}
 					</Button>
-					<ButtonWithSpinner
+					{user.queues.length > 0 ? (
+						<ButtonWithSpinner
+							variant="contained"
+							type="button"
+							disabled={!selectedContact || !selectedQueue }
+							onClick={() => handleSaveTicket(selectedContact.id)}
+							color="primary"
+							loading={loading}
+						>
+							{i18n.t("newTicketModal.buttons.ok")}
+						</ButtonWithSpinner>
+					) : (
+						<ButtonWithSpinner
 						variant="contained"
 						type="button"
-						disabled={!selectedContact || !selectedQueue}
+						disabled={!selectedContact}
 						onClick={() => handleSaveTicket(selectedContact.id)}
 						color="primary"
 						loading={loading}
 					>
 						{i18n.t("newTicketModal.buttons.ok")}
 					</ButtonWithSpinner>
+					)}
 				</DialogActions>
 			</Dialog>
 		</>
