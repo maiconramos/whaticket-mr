@@ -104,7 +104,7 @@ export const update = async (
   if (ticketData.transf) {
     const { greetingMessage } = await ShowQueueService(ticketData.queueId);
     if (greetingMessage) {
-      const msgtxt = formatBody(`\u200e${greetingMessage}`);
+      const msgtxt = formatBody(`\u200e${greetingMessage}`, ticket.contact);
       await SendWhatsAppMessage({ body: msgtxt, ticket });
     }
   }
@@ -116,7 +116,7 @@ export const update = async (
 
     if (farewellMessage) {
       await SendWhatsAppMessage({
-        body: formatBody(`\u200e${farewellMessage}`, ticket),
+        body: formatBody(`\u200e${farewellMessage}`, ticket.contact),
         ticket
       });
     }
