@@ -26,6 +26,9 @@ const useStyles = makeStyles(theme => ({
 		flexDirection: "column",
 		height: 240,
 	},
+	iframeDataStudio: {
+		width: '100%',
+	},
 	customFixedHeightPaper: {
 		padding: theme.spacing(2),
 		display: "flex",
@@ -107,7 +110,15 @@ const Dashboard = () => {
 						<Paper className={classes.fixedHeightPaper}>
 							<Chart />
 						</Paper>
+					</Grid>				
+					 	
+					{process.env.REACT_APP_DASHBOARD_DATA_STUDIO && (
+					<Grid item xs={12}>
+								<iframe id='data-studio'  title='data-studio' width='600' height='1055' src={process.env.REACT_APP_DASHBOARD_DATA_STUDIO} frameborder='0' className={classes.iframeDataStudio} allowfullscreen></iframe>
+							
 					</Grid>
+					)}
+					
 				</Grid>
 			</Container>
 		</div>
