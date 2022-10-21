@@ -180,6 +180,44 @@ const messages = {
         },
         success: "Quick Reply saved successfully.",
       },
+      tags: {
+        title: "Tags",
+        table: {
+          name: "Tags",
+          color: "Color",
+          actions: "Action"
+        },
+        toasts: {
+          deleted: "Tag deleted successfully!",
+          deletedAll: "All Tags deleted successfully!",
+        },
+        buttons: {
+          add: "Add",
+          deleteAll: "Delete All",
+        },
+        confirmationModal: {
+          deleteTitle: "Delete",
+          deleteAllTitle: "Delete All",
+          deleteMessage: "Are you sure you want to delete this Tag?",
+          deleteAllMessage: "Are you sure you want to delete all Tags?",
+        },
+      },
+      tagModal: {
+        title: {
+          add: "Add Tag",
+          edit: "Edit Tag",
+        },
+        buttons: {
+          okAdd: "Save",
+          okEdit: "Edit",
+          cancel: "Cancel",
+        },
+        form: {
+          name: "Tag Name",
+          color: "Tag Color"
+        },
+        success: "Tag saved successfully!",
+      },
       queueModal: {
         title: {
           add: "Add queue",

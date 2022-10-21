@@ -2,7 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "system": {
-    "version": "1.0.1",
+    "version": "1.2.0",
     "name": "Multiatendimento",
     "url": "https://maiconramos.com/multiatendimento"
   },
@@ -27,6 +27,7 @@
     "i18next-browser-languagedetector": "^6.0.1",
     "markdown-to-jsx": "^7.1.0",
     "mic-recorder-to-mp3": "^2.2.2",
+    "mui-color": "^2.0.0-beta.2",
     "qrcode.react": "^1.0.0",
     "react": "17.0.2",
     "react-color": "^2.19.3",

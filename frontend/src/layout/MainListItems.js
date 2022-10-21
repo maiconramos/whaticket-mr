@@ -19,6 +19,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded';
 import SendIcon from '@mui/icons-material/Send';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 
 import { i18n } from "../translate/i18n";
 import { WhatsAppsContext } from "../context/WhatsApp/WhatsAppsContext";
@@ -115,6 +116,11 @@ const MainListItems = (props) => {
         to="/quickAnswers"
         primary={i18n.t("mainDrawer.listItems.quickAnswers")}
         icon={<QuestionAnswerOutlinedIcon />}
+      />
+      <ListItemLink
+        to="/tags"
+        primary={i18n.t("mainDrawer.listItems.tags")}
+        icon={<LocalOfferIcon />}
       />
       
      

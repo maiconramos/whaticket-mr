@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import makeStyles from '@mui/styles/makeStyles';
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
-import InputBase from "@mui/material/InputBase";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Badge from "@mui/material/Badge";
@@ -16,6 +15,7 @@ import Switch from "@mui/material/Switch";
 import NewTicketModal from "../NewTicketModal";
 import TicketsList from "../TicketsList";
 import TabPanel from "../TabPanel";
+import { TagsFilter } from "../TagsFilter";
 
 import { i18n } from "../../translate/i18n";
 import { AuthContext } from "../../context/Auth/AuthContext";
@@ -78,11 +78,13 @@ const useStyles = makeStyles((theme) => ({
     flex: 11,
     outlineStyle: "none",
     border: "none",
+    borderRadius: 25,
     padding: "10px",
+    outline: "none",
   },
 
   badge: {
-    right: "0px",
+    right: "-10px",
   },
   show: {
     display: "block",
@@ -102,14 +104,14 @@ const TicketsManager = () => {
 
   const [searchParam, setSearchParam] = useState("");
   const [tab, setTab] = useState("open");
-  const [tabOpen, setTabOpen] = useState("open");
+  const [tabOpen] = useState("open");
   const [newTicketModalOpen, setNewTicketModalOpen] = useState(false);
   const [showAllTickets, setShowAllTickets] = useState(false);
-  const searchInputRef = useRef();
   const { user } = useContext(AuthContext);
 
-  const [openCount, setOpenCount] = useState(0);
+  const [, setOpenCount] = useState(0);
   const [pendingCount, setPendingCount] = useState(0);
+  const [selectedTags, setSelectedTags] = useState([]);
 
   const userQueueIds = user.queues.map((q) => q.id);
   const [selectedQueueIds, setSelectedQueueIds] = useState(userQueueIds || []);
@@ -135,6 +137,11 @@ const TicketsManager = () => {
     }
 
   };
+
+  const handleSelectedTags = (selecteds) => {
+    const tags = selecteds.map(t => t.id);
+    setSelectedTags(tags);
+  }
 
   const handleChangeTab = (e, newValue) => {
     setTab(newValue);
@@ -206,18 +213,6 @@ const TicketsManager = () => {
         </Tabs>
       </Paper>
       <Paper square elevation={0} className={classes.ticketOptionsBox}>
-        {/*tab === "search" ? (
-          <div className={classes.serachInputWrapper}>
-            <SearchIcon className={classes.searchIcon} />
-            <InputBase
-              className={classes.searchInput}
-              inputRef={searchInputRef}
-              placeholder={i18n.t("tickets.search.placeholder")}
-              type="search"
-              onChange={handleSearch}
-            />
-          </div>
-        ) : ( */}
           <>
             <Button
               variant="outlined"
@@ -289,8 +284,10 @@ const TicketsManager = () => {
         />
       </TabPanel>
       <TabPanel value={tab} name="search" className={classes.ticketsWrapper}>
+      <TagsFilter onFiltered={handleSelectedTags} />
         <TicketsList
           searchParam={searchParam}
+          tags={selectedTags}
           showAll={true}
           selectedQueueIds={selectedQueueIds}
         />

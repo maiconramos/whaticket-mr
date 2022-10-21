@@ -182,6 +182,45 @@ const messages = {
         },
         success: "Resposta Rápida salva com sucesso.",
       },
+      tags: {
+        title: "Tags",
+        table: {
+          name: "Tags",
+          color: "Cor",
+          contacts: "Contatos",
+          actions: "Ação"
+        },
+        toasts: {
+          deleted: "Tag excluída com sucesso!",
+          deletedAll: "Todas Tags excluídas com sucesso!",
+        },
+        buttons: {
+          add: "Adicionar",
+          deleteAll: "Deletar Todos",
+        },
+        confirmationModal: {
+          deleteTitle: "Deletar ",
+          deleteAllTitle: "Deletar Todos",
+          deleteMessage: "Tem certeza que deseja deletar esta Tag?",
+          deleteAllMessage: "Tem certeza que deseja deletar todas as Tags?",
+        },
+      },
+      tagModal: {
+        title: {
+          add: "Adicionar Tag",
+          edit: "Editar Tag",
+        },
+        buttons: {
+          okAdd: "Salvar",
+          okEdit: "Editar",
+          cancel: "Cancelar",
+        },
+        form: {
+          name: "Nome da Tag",
+          color: "Cor da Tag"
+        },
+        success: "Tag salva com sucesso!",
+      },
       queueModal: {
         title: {
           add: "Adicionar setor",
@@ -252,7 +291,7 @@ const messages = {
       transferTicketModal: {
         title: "Transferir Ticket",
         fieldLabel: "Digite para buscar usuários",
-        fieldQueueLabel: "Transferir para setor",
+        fieldQueueLabel: "Transferir para o setor",
         fieldConnectionLabel: "Transferir para conexão",
         fieldQueuePlaceholder: "Selecione um setor",
         fieldConnectionPlaceholder: "Selecione uma conexão",
@@ -269,6 +308,14 @@ const messages = {
         noTicketsMessage:
           "Nenhum ticket encontrado com esse status ou termo pesquisado",
         connectionTitle: "Conexão que está sendo utilizada atualmente.",
+        items: {
+          queueless: "Sem Setor",
+          accept: "Aceitar",
+          spy: "Espiar",
+          close: "Encerrar",
+          reopen: "Reabrir",
+          return: "Mover para aguardando"
+        },
         buttons: {
           accept: "Aceitar",
         },
@@ -293,6 +340,7 @@ const messages = {
           tickets: "Conversas",
           contacts: "Contatos",
           quickAnswers: "Atalhos",
+          tags: "Tags",
           queues: "Setores",
           administration: "Administração",
           users: "Usuários",
@@ -516,6 +564,9 @@ const messages = {
           "Esta cor já está em uso, escolha outra.",
         ERR_WAPP_GREETING_REQUIRED:
           "A mensagem de saudação é obrigatório quando há mais de um setor.",
+        ERR_USER_CREATION_COUNT: "Limite de usuários atingido, para alterar entre em contato com o suporte.",
+        ERR_CONNECTION_CREATION_COUNT: "Limite de conexões atingido, para alterar entre em contato com o suporte.",
+        ERR_NO_TAG_FOUND: "Tag não encontrada."
       },
     },
   },

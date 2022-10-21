@@ -183,6 +183,44 @@ const messages = {
         },
         success: "Respuesta rápida guardada correctamente.",
       },
+      tags: {
+        title: "Etiquetas",
+        table: {
+          name: "Etiquetas",
+          color: "Color",
+          actions: "Acción"
+        },
+        toasts: {
+          deleted: "¡Etiqueta eliminada con éxito!",
+          deletedAll: "¡Todas las etiquetas se eliminaron con éxito!",
+        },
+        buttons: {
+          add: "Agregar",
+          deleteAll: "Borrar todo",
+        },
+        confirmationModal: {
+          deleteTitle: "Eliminar ",
+          deleteAllTitle: "Borrar todo",
+          deleteMessage: "¿Está seguro de que desea eliminar esta etiqueta?",
+          deleteAllMessage: "¿Está seguro de que desea eliminar todas las etiquetas?",
+        },
+      },
+      tagModal: {
+        title: {
+          add: "Agregar etiqueta",
+          edit: "Editar etiqueta",
+        },
+        buttons: {
+          okAdd: "Guardar",
+          okEdit: "Editar",
+          cancel: "Cancelar",
+        },
+        form: {
+          name: "Nombre de la etiqueta",
+          color: "Color de la etiqueta"
+        },
+        success: "¡Etiqueta guardada con éxito!",
+      },
       queueModal: {
         title: {
           add: "Agregar cola",

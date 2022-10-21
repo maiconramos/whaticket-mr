@@ -103,7 +103,7 @@ const NewTicketModal = ({ modalOpen, onClose }) => {
 				contactId: contactId,
 				userId: user.id,
 				status: "open",
-				queueId: selectedQueue == '' ? null : selectedQueue
+				queueId: selectedQueue === '' ? null : selectedQueue
 			});
 			history.push(`/tickets/${ticket.id}`);
 		} catch (err) {
